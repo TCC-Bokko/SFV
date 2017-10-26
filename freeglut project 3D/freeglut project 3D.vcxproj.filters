@@ -25,6 +25,15 @@
     <Filter Include="Header Files\ObjetosCuádricos">
       <UniqueIdentifier>{fe652e1f-cda6-4f61-8b51-491faaba3842}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Fisicas">
+      <UniqueIdentifier>{99b471e6-dbf0-4f2d-8779-1c48256c866d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fisicas">
+      <UniqueIdentifier>{d9961b7a-3e80-40ab-8e29-5bbf3c375b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Particulas">
+      <UniqueIdentifier>{0a09c344-28e4-4d0f-9551-712488f2e403}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +72,15 @@
     <ClCompile Include="TAfin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="particula.cpp">
+      <Filter>Source Files\Fisicas</Filter>
+    </ClCompile>
+    <ClCompile Include="SistemaPart.cpp">
+      <Filter>Source Files\Fisicas</Filter>
+    </ClCompile>
+    <ClCompile Include="EsfPar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PuntoVector3D.h">
@@ -99,6 +117,15 @@
       <Filter>Header Files\ObjetosCuádricos</Filter>
     </ClInclude>
     <ClInclude Include="TAfin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="particula.h">
+      <Filter>Header Files\Fisicas</Filter>
+    </ClInclude>
+    <ClInclude Include="SistemaPart.h">
+      <Filter>Header Files\Fisicas</Filter>
+    </ClInclude>
+    <ClInclude Include="EsfPar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

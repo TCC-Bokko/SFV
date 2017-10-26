@@ -1,5 +1,8 @@
 #include "Sphere.h"
 
+Sphere::Sphere() {
+}
+
 
 Sphere::Sphere(GLUquadric* o, GLfloat rad, GLfloat r, GLfloat g, GLfloat b)
 {

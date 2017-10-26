@@ -71,12 +71,15 @@
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="Disk.cpp" />
     <ClCompile Include="Escena.cpp" />
+    <ClCompile Include="EsfPar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Malla.cpp" />
     <ClCompile Include="ObjetoCompuesto.cpp" />
     <ClCompile Include="ObjetoCuadrico.cpp" />
     <ClCompile Include="ParcialDisk.cpp" />
+    <ClCompile Include="particula.cpp" />
     <ClCompile Include="PuntoVector3D.cpp" />
+    <ClCompile Include="SistemaPart.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="TAfin.cpp" />
   </ItemGroup>
@@ -85,12 +88,15 @@
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="Disk.h" />
     <ClInclude Include="Escena.h" />
+    <ClInclude Include="EsfPar.h" />
     <ClInclude Include="Malla.h" />
     <ClInclude Include="Objeto3D.h" />
     <ClInclude Include="ObjetoCompuesto.h" />
     <ClInclude Include="ObjetoCuadrico.h" />
     <ClInclude Include="ParcialDisk.h" />
+    <ClInclude Include="particula.h" />
     <ClInclude Include="PuntoVector3D.h" />
+    <ClInclude Include="SistemaPart.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="TAfin.h" />
   </ItemGroup>
