@@ -12,7 +12,7 @@ EsfPar::EsfPar(GLUquadric* o, GLfloat rad, GLfloat r, GLfloat g, GLfloat b, std:
 	_g = g;
 	_b = b;
 	pos = p;
-	vel = { 0, 0, 0 };
+	vel = { 0, 1, 0 };
 	acl = { 0, 0, 0 };
 	mas = 1;
 }

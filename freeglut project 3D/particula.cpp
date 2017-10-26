@@ -1,4 +1,6 @@
 #include "particula.h"
+#include <stdio.h>
+#include <iostream>
 
 particula::particula() {
 	pos = { 0, 0, 0 };
@@ -22,6 +24,10 @@ particula::~particula()
 {
 }
 
+void particula::Pstatus() {
+	std::cout << "Pos: (" << pos[0] << ", " << pos[1] << ", " << pos[2] << ")\n";
+}
+
 void particula::update() {
 	vel = sumVec(vel, acl);
 	pos = sumVec(pos, vel);
@@ -29,14 +35,13 @@ void particula::update() {
 }
 
 std::vector<float> particula::sumVec(std::vector<float> a, std::vector<float> b) {
-	std::vector<float> sol;
-	sol = {0,0,0};
-
 	if (a.size() == b.size()) {
 		for (int i = 0; i < a.size(); i++) {
-			sol[i] = a[i] + b[i];
+			a[i] = a[i] + b[i];
 		}
-		return sol;
+		return a;
 	}
-	else return sol;
+	else { 
+		std::cout << "A =! B\n";
+		return a; }
 }

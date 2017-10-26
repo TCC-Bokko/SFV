@@ -34,6 +34,9 @@
     <Filter Include="Source Files\Particulas">
       <UniqueIdentifier>{0a09c344-28e4-4d0f-9551-712488f2e403}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Particulas">
+      <UniqueIdentifier>{2bc31056-b401-4669-809a-6a2573e73bb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,7 +82,7 @@
       <Filter>Source Files\Fisicas</Filter>
     </ClCompile>
     <ClCompile Include="EsfPar.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Particulas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +129,7 @@
       <Filter>Header Files\Fisicas</Filter>
     </ClInclude>
     <ClInclude Include="EsfPar.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Particulas</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

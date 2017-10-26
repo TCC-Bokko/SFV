@@ -1,4 +1,5 @@
 #include "ObjetoCompuesto.h"
+#include "particula.h"
 
 
 ObjetoCompuesto::ObjetoCompuesto()
@@ -21,3 +22,10 @@ void ObjetoCompuesto::dibuja(){
 		o->dibuja();
 	glPopMatrix();
 }
+
+/*
+void ObjetoCompuesto::update() {
+	for (int i = 0; i < objetos.size(); i++)
+		objetos[i].update();
+}
+*/
