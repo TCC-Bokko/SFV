@@ -9,7 +9,8 @@ class EsfPar :
 {
 public:
 	EsfPar();
-	EsfPar(GLUquadric* o, GLfloat rad, GLfloat r, GLfloat g, GLfloat b, std::vector<float> p);
+	EsfPar(GLUquadric* o, GLfloat rad, GLfloat r, GLfloat g, GLfloat b, PuntoVector3D* p);
+	void update();
 	~EsfPar();
 };
 

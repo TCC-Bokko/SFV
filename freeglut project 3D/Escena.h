@@ -11,7 +11,7 @@ class Escena :
 public:
 	Escena();
 	SistemaPart getSP(){ return SP; }
-
+	void update(long long deltaTime);
 private:
 	SistemaPart SP;
 };

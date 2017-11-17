@@ -10,7 +10,7 @@ ObjetoCompuesto::ObjetoCompuesto()
 
 ObjetoCompuesto::~ObjetoCompuesto()
 {
-	for (auto o : objetos){
+	for (auto o : componentes){
 		delete o;
 	}
 }
@@ -18,14 +18,13 @@ void ObjetoCompuesto::dibuja(){
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glMultMatrixf(mT->getm());
-	for (auto o : objetos)
+	for (auto o : componentes)
 		o->dibuja();
 	glPopMatrix();
 }
 
-/*
-void ObjetoCompuesto::update() {
-	for (int i = 0; i < objetos.size(); i++)
-		objetos[i].update();
+
+void ObjetoCompuesto::update(long long deltaTime) {
+	for (int i = 0; i < componentes.size(); i++)
+		componentes[i]->update(deltaTime);
 }
-*/

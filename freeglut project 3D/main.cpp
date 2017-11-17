@@ -17,6 +17,8 @@ using namespace std;
 // Viewport size
 int WIDTH= 500, HEIGHT= 500;
 
+long long oldTime = 0;
+
 // Viewing frustum parameters
 GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
 
@@ -138,6 +140,14 @@ void resize(int newWidth, int newHeight) {
 	glLoadIdentity();   
 	glOrtho(xLeft, xRight, yBot, yTop, N, F);
 }
+void update(){
+	long long deltaTime = oldTime - glutGet(GLUT_ELAPSED_TIME);
+	e->update(deltaTime);
+	glutPostRedisplay();
+	oldTime = glutGet(GLUT_ELAPSED_TIME);
+	
+}
+
 
 void key(unsigned char key, int x, int y){
 	bool need_redisplay = true;
@@ -184,7 +194,7 @@ int main(int argc, char *argv[]){
 	glutReshapeFunc(resize);
 	glutKeyboardFunc(key);
 	glutDisplayFunc(display);
-
+	glutIdleFunc(update);
 	// OpenGL basic setting
 	initGL();
 
