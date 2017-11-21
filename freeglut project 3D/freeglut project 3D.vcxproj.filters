@@ -84,6 +84,15 @@
     <ClCompile Include="EsfPar.cpp">
       <Filter>Source Files\Particulas</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PuntoVector3D.h">
@@ -122,14 +131,26 @@
     <ClInclude Include="TAfin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="particula.h">
-      <Filter>Header Files\Fisicas</Filter>
-    </ClInclude>
     <ClInclude Include="SistemaPart.h">
       <Filter>Header Files\Fisicas</Filter>
     </ClInclude>
     <ClInclude Include="EsfPar.h">
       <Filter>Header Files\Particulas</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files\Fisicas</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

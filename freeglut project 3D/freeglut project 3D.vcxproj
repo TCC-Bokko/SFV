@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -70,14 +70,17 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="Disk.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Escena.cpp" />
     <ClCompile Include="EsfPar.cpp" />
+    <ClCompile Include="GraphicComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Malla.cpp" />
     <ClCompile Include="ObjetoCompuesto.cpp" />
     <ClCompile Include="ObjetoCuadrico.cpp" />
     <ClCompile Include="ParcialDisk.cpp" />
     <ClCompile Include="particula.cpp" />
+    <ClCompile Include="PhysicComponent.cpp" />
     <ClCompile Include="PuntoVector3D.cpp" />
     <ClCompile Include="SistemaPart.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -87,14 +90,18 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="Disk.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Escena.h" />
     <ClInclude Include="EsfPar.h" />
+    <ClInclude Include="GraphicComponent.h" />
     <ClInclude Include="Malla.h" />
     <ClInclude Include="Objeto3D.h" />
     <ClInclude Include="ObjetoCompuesto.h" />
     <ClInclude Include="ObjetoCuadrico.h" />
     <ClInclude Include="ParcialDisk.h" />
-    <ClInclude Include="particula.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="PhysicComponent.h" />
+    <ClInclude Include="PhysicObject.h" />
     <ClInclude Include="PuntoVector3D.h" />
     <ClInclude Include="SistemaPart.h" />
     <ClInclude Include="Sphere.h" />

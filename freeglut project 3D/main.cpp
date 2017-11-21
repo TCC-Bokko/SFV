@@ -105,7 +105,6 @@ void display(void) {
 		// Drawing the scene	 		 
 		//glColor3f(1.0, 1.0, 1.0);
 		//glutSolidSphere(6, 50, 60); //Sphere: radius=6, meridians=50, parallels=60
-		e->getSP().updateSP();
 		e->dibuja();
 	glPopMatrix();
  
@@ -163,7 +162,6 @@ void key(unsigned char key, int x, int y){
 		case 'x': angY=angY-5; break;
 		case 'd': angZ=angZ+5; break;
 		case 'c': angZ=angZ-5; break;
-		case 'u': e->getSP().updateSP(); break;
 		//case 'q': e->mover(-1); break;
 		//case 'w': e->mover(1); break;
 		default:

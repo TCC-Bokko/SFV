@@ -4,7 +4,7 @@
 #include <vector>
 
 class EsfPar :
-	public particula,
+	public Particle,
 	public Sphere
 {
 public:

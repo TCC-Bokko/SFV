@@ -3,16 +3,15 @@
 
 #include "ObjetoCompuesto.h"
 #include "SistemaPart.h"
-#include "particula.h"
+#include "Entity.h"
 
 class Escena :
 	public ObjetoCompuesto
 {
 public:
 	Escena();
-	SistemaPart getSP(){ return SP; }
 	void update(long long deltaTime);
 private:
-	SistemaPart SP;
+	std::vector<Entity*> entitys;
 };
 #endif

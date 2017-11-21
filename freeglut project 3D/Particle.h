@@ -3,18 +3,20 @@
 #include <vector>
 //#include "Objeto3D.h"
 #include "PuntoVector3D.h"
+#include "PhysicObject.h"
 
-class particula //: public Objeto3D
+class Particle:
+	public PhysicObject
 {
 public:
-	particula();
-	particula(PuntoVector3D* p);
-	~particula();
+	Particle();
+	Particle(PuntoVector3D* p);
+	~Particle();
 
 	void update(long long deltaTime);
 	//int getLife() { return vida; }
 	void Pstatus();
-	PuntoVector3D* particula::sumVec(PuntoVector3D* a, PuntoVector3D* b);
+	PuntoVector3D* Particle::sumVec(PuntoVector3D* a, PuntoVector3D* b);
 
 protected:
 	PuntoVector3D* pos;

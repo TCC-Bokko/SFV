@@ -4,8 +4,11 @@
 TAfin::TAfin()
 {
 	for (int i = 0; i < 16; ++i) {
-		if (i == 0 || i == 5 || i == 10 || i == 15) m[i] = 1;
-		else m[i] = 0;
+		//Esto es lo mismo
+		m[i] = i % 5 == 0;
+		//que esto, pero bastante más elegante
+		/*if (i == 0 || i == 5 || i == 10 || i == 15) m[i] = 1;
+		else m[i] = 0;*/
 	}
 }
 
@@ -13,7 +16,6 @@ TAfin::TAfin()
 TAfin::~TAfin()
 {
 }
-
 void TAfin::translate(PuntoVector3D* v) {
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();

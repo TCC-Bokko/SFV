@@ -9,7 +9,6 @@ public:
 	Objeto3D() { mT = new TAfin(); };
 	virtual ~Objeto3D(){};
 	virtual void dibuja() = 0;
-	virtual void update(long long deltaTime) = 0;
 	TAfin* mT;	
 protected:
 	GLfloat _r, _g, _b;

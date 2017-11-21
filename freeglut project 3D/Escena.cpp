@@ -6,6 +6,7 @@
 
 Escena::Escena()
 {
+	//Emmmm esto darle una vuelta porque yo no lo tengo muyclaro
 	PuntoVector3D* v = new PuntoVector3D(0, 0, 0, 0);
 	
 	//objetos.push_back(new Sphere(_o, 2, 1, 0, 0));
@@ -18,9 +19,9 @@ Escena::Escena()
 	*/
 }
 void Escena::update(long long deltaTime){
-	for each (auto c in componentes)
+	for each (Entity* e in entitys)
 	{
-		c->update(deltaTime);
-		c->dibuja();
+		e->update(deltaTime);
+		e->draw();
 	}
 }

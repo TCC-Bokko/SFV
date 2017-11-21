@@ -22,6 +22,6 @@ EsfPar::~EsfPar()
 }
 
 void EsfPar::update(){
-	particula::update();
+	Particle::update();
 	Sphere::dibuja();
 }

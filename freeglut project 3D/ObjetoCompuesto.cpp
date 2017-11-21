@@ -1,5 +1,5 @@
 #include "ObjetoCompuesto.h"
-#include "particula.h"
+#include "Particle.h"
 
 
 ObjetoCompuesto::ObjetoCompuesto()
@@ -23,8 +23,3 @@ void ObjetoCompuesto::dibuja(){
 	glPopMatrix();
 }
 
-
-void ObjetoCompuesto::update(long long deltaTime) {
-	for (int i = 0; i < componentes.size(); i++)
-		componentes[i]->update(deltaTime);
-}
