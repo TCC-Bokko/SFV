@@ -1,27 +1,26 @@
 #pragma once
 #include "GL\freeglut.h"
+#include "Sphere.h"
 #include <vector>
-//#include "Objeto3D.h"
+#include "Objeto3D.h"
 #include "PuntoVector3D.h"
 
-class particula //: public Objeto3D
+class particula: public Sphere
 {
 public:
-	particula();
-	particula(PuntoVector3D* p);
+	particula(PuntoVector3D * pos0, PuntoVector3D * a0, PuntoVector3D* v0, float mass);
 	~particula();
 
 	void update(long long deltaTime);
+	void dibuja();
 	//int getLife() { return vida; }
 	void Pstatus();
-	PuntoVector3D* particula::sumVec(PuntoVector3D* a, PuntoVector3D* b);
 
 protected:
-	PuntoVector3D* pos;
-	PuntoVector3D* vel;
-	PuntoVector3D* acl;
-	float mas;
-	//int vida;
+	PuntoVector3D* velocity;
+	PuntoVector3D* acceletarion;
+	float mass;
+	int life;
 
 };
 

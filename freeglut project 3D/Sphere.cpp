@@ -1,12 +1,9 @@
 #include "Sphere.h"
 
-Sphere::Sphere() {
-}
 
-
-Sphere::Sphere(GLUquadric* o, GLfloat rad, GLfloat r, GLfloat g, GLfloat b)
+Sphere::Sphere(GLfloat rad, GLfloat r, GLfloat g, GLfloat b)
 {
-	_o = o;
+	_o = gluNewQuadric();
 	_rad = rad;
 
 	_r = r;

@@ -1,40 +1,39 @@
 #include "particula.h"
+
 #include <stdio.h>
 #include <iostream>
 
-particula::particula() {
-	pos = new PuntoVector3D(0, 0, 0, 0);
-	vel = new PuntoVector3D(0, 0, 0, 0);
-	acl = new PuntoVector3D(0, 0, 0, 0);
-	mas = 1;
-	//vida = 10;
-}
-
-particula::particula(PuntoVector3D* p)
-{
-	pos = p;
-	vel = new PuntoVector3D(0, 0, 0, 0);
-	acl = new PuntoVector3D(0, 0, 0, 0);
-	mas = 1;
-	//vida = 10;
+particula::particula(PuntoVector3D* pos0, PuntoVector3D* a0, PuntoVector3D* v0, float mass):Sphere(0.5, 0.1, 0.2, 0){
+	position = pos0;
+	velocity = v0;
+	acceletarion = a0;
+	this->mass = mass;
+	life = 100;
+	
 }
 
 
 particula::~particula()
 {
+	delete position;
+	delete acceletarion;
+	delete velocity;
 }
 
 void particula::Pstatus() {
-	std::cout << "Pos: (" << pos->getX() << ", " << pos->getY() << ", " << pos->getZ() << ")\n";
+	std::cout << "Pos: " << "( " << position->getX() << ", " << position->getY() << ", " << position->getZ() << ")" << endl;
 }
 
 void particula::update(long long deltaTime) {
-	vel = sumVec(vel, acl);
-	pos = sumVec(pos, vel);
+	velocity->escalar(deltaTime / 1000);
+	velocity->print();
+	position->sumar(velocity);
 	//vida--;
 }
 
-PuntoVector3D* particula::sumVec(PuntoVector3D* a, PuntoVector3D* b) {
-
-		return new PuntoVector3D(a->getX() + b->getX(), a->getY() + b->getY(), a->getZ() + b->getZ(), 0); 
+void particula::dibuja()
+{
+	mT->translate(position);
+	Sphere::dibuja();
+	
 }

@@ -4,6 +4,9 @@
 
 #include <math.h>
 #include <GL/freeglut.h>
+#include <iostream>
+
+using namespace std;
 
 class PuntoVector3D {
 private:
@@ -12,17 +15,19 @@ private:
 public:
 	PuntoVector3D(GLfloat x, GLfloat y, GLfloat z, int pv);
 	~PuntoVector3D();
-	GLfloat getX();
-	GLfloat getY();
-	GLfloat getZ();
-	bool esPunto();
-	bool esVector();
+	GLfloat getX() const;
+	GLfloat getY() const;
+	GLfloat getZ() const;
+	bool esPunto() const;
+	bool esVector() const;
 	void escalar(GLfloat factor);
 	void normalizar();
 	void sumar(PuntoVector3D* pv);
 	PuntoVector3D* clonar();
 	GLfloat productoEscalar(PuntoVector3D* vector);
 	PuntoVector3D* productoVectorial(PuntoVector3D* vector);
+
+	void print();
 };
 #endif
 

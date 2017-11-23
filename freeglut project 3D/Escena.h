@@ -1,18 +1,20 @@
 #ifndef H_ESCENA_H
 #define H_ESCENA_H
 
-#include "ObjetoCompuesto.h"
-#include "SistemaPart.h"
+#include "PuntoVector3D.h"
+#include "Objeto3D.h"
 #include "particula.h"
+#include <vector>
 
-class Escena :
-	public ObjetoCompuesto
+#define MAX_PARTICLES 30
+
+class Escena
 {
 public:
 	Escena();
-	SistemaPart getSP(){ return SP; }
 	void update(long long deltaTime);
+	void draw();
 private:
-	SistemaPart SP;
+	std::vector<particula*> objetos;
 };
 #endif

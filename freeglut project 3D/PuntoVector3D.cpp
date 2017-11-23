@@ -11,22 +11,22 @@ PuntoVector3D::PuntoVector3D(GLfloat x, GLfloat y, GLfloat z, int pv) {
 
 PuntoVector3D::~PuntoVector3D() {}
 
-GLfloat PuntoVector3D::getX() {
+GLfloat PuntoVector3D::getX() const  {
 	return x;
 }
-GLfloat PuntoVector3D::getY() {
+GLfloat PuntoVector3D::getY() const {
 	return y;
 }
 
-GLfloat PuntoVector3D::getZ() {
+GLfloat PuntoVector3D::getZ() const {
 	return z;
 }
 
-bool PuntoVector3D::esPunto() {
+bool PuntoVector3D::esPunto() const{
 	return pv == 1;
 }
 
-bool PuntoVector3D::esVector() {
+bool PuntoVector3D::esVector() const{
 	return pv == 0;
 }
 
@@ -71,4 +71,7 @@ PuntoVector3D* PuntoVector3D::productoVectorial(PuntoVector3D* v) {
 	return new PuntoVector3D(resx, resy, resz, 0);
 }
 
-
+void PuntoVector3D::print()
+{
+	cout<< "( " << getX() << ", " << getY() << ", " << getZ() << ")";
+}

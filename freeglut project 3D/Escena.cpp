@@ -1,26 +1,33 @@
 #include "Escena.h"
-#include "Sphere.h"
-#include "EsfPar.h"
+#include "particula.h"
 
 
+PuntoVector3D* randomPosition() {
+	return new PuntoVector3D(rand()%100, 30, rand()%100, 1);
+}
 
 Escena::Escena()
 {
-	PuntoVector3D* v = new PuntoVector3D(0, 0, 0, 0);
-	
-	//objetos.push_back(new Sphere(_o, 2, 1, 0, 0));
-	componentes.push_back(new EsfPar(_o, 2, 2, 2, 0, v));
-	//SP.addPar(par);
-	
-	/*
-	PuntoVector3D * v = new PuntoVector3D(2, 2, 1, 0);
-	objetos[0]->mT->scale(v);
-	*/
+	PuntoVector3D* origin = new PuntoVector3D(0, 0, 0, 0);
+	PuntoVector3D* v = new PuntoVector3D(0, 3, 0, 0);
+	for (int i = 0; i < 1; i++) {
+		objetos.push_back(new particula(v, new PuntoVector3D(0, 0, 0, 1), new PuntoVector3D(0, 0, 0, 1), 1));
+	}
+
 }
 void Escena::update(long long deltaTime){
-	for each (auto c in componentes)
+	system("cls");
+	for each (auto objeto in objetos)
 	{
-		c->update(deltaTime);
-		c->dibuja();
+		objeto->update(deltaTime);
+		//objeto->dibuja();
+		objeto->Pstatus();
 	}
 }
+
+void Escena::draw()
+{
+	for (auto o : objetos)
+		o->dibuja();
+}
+
