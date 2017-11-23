@@ -9,6 +9,14 @@ PuntoVector3D::PuntoVector3D(GLfloat x, GLfloat y, GLfloat z, int pv) {
 	this->pv = pv;
 }
 
+PuntoVector3D::PuntoVector3D(PuntoVector3D & other)
+{
+	this->x = other.x;
+	this->y = other.y;
+	this->z = other.z;
+	this->pv = other.pv;
+}
+
 PuntoVector3D::~PuntoVector3D() {}
 
 GLfloat PuntoVector3D::getX() const  {
@@ -20,6 +28,13 @@ GLfloat PuntoVector3D::getY() const {
 
 GLfloat PuntoVector3D::getZ() const {
 	return z;
+}
+
+void PuntoVector3D::setPosition(GLfloat x, GLfloat y, GLfloat z)
+{
+	this->x = x;
+	this->y = y;
+	this->z = z;
 }
 
 bool PuntoVector3D::esPunto() const{
@@ -50,6 +65,11 @@ void PuntoVector3D::sumar(PuntoVector3D* pv) {
 	y += pv->getY();
 	z += pv->getZ();
 }
+void PuntoVector3D::restar(PuntoVector3D* other) {
+	x -= other->getX();
+	y -= other->getY();
+	z -= other->getZ();
+}
 
 PuntoVector3D* PuntoVector3D::clonar() {
 	return new PuntoVector3D(x, y, z, pv);
@@ -69,6 +89,15 @@ PuntoVector3D* PuntoVector3D::productoVectorial(PuntoVector3D* v) {
 	resy = this->z*v->x - v->z*this->x;
 	resz = this->x*v->y - v->x*this->y;
 	return new PuntoVector3D(resx, resy, resz, 0);
+}
+
+PuntoVector3D & PuntoVector3D::operator=(PuntoVector3D * other)
+{
+	x = other->getX();
+	y = other->getY();
+	z = other->getZ();
+	pv = other->pv;
+	return *this;
 }
 
 void PuntoVector3D::print()

@@ -3,12 +3,15 @@
 #include <stdio.h>
 #include <iostream>
 
-particula::particula(PuntoVector3D* pos0, PuntoVector3D* a0, PuntoVector3D* v0, float mass):Sphere(0.5, 0.1, 0.2, 0){
+particula::particula(PuntoVector3D* pos0, PuntoVector3D* a0, PuntoVector3D* v0, float mass):Sphere(0.5f, 0.1f, 0.2f, 0){
 	position = pos0;
+	lastPosition = new PuntoVector3D(*pos0);
 	velocity = v0;
 	acceletarion = a0;
 	this->mass = mass;
 	life = 100;
+
+	mT->translate(position);
 	
 }
 
@@ -25,15 +28,21 @@ void particula::Pstatus() {
 }
 
 void particula::update(long long deltaTime) {
-	velocity->escalar(deltaTime / 1000);
-	velocity->print();
-	position->sumar(velocity);
+	*lastPosition = position;
+	PuntoVector3D aux(*velocity);
+	aux.escalar((GLdouble)deltaTime / 1000);
+	cout << "Vel: ";velocity->print();
+	cout << "dT: " << deltaTime << endl;
+	position->sumar(&aux);
 	//vida--;
+	if (position->getY() < 0) position->setPosition(position->getX(), 5, position->getZ());
 }
 
 void particula::dibuja()
 {
-	mT->translate(position);
+	PuntoVector3D deltaSpace(*position);
+	deltaSpace.restar(lastPosition);
+	mT->translate(&deltaSpace);
 	Sphere::dibuja();
 	
 }

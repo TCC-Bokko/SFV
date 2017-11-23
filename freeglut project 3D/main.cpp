@@ -30,6 +30,7 @@ GLdouble upX=0, upY=1, upZ=0;
 // Scene variables
 GLfloat angX, angY, angZ; 
 Escena*e;
+bool startSimulation = false;
 
 void buildSceneObjects() {	 
     angX=0.0f;
@@ -142,10 +143,13 @@ void resize(int newWidth, int newHeight) {
 
 
 void update(){
-	long long deltaTime = oldTime - glutGet(GLUT_ELAPSED_TIME);
-	e->update(deltaTime);
-	glutPostRedisplay();
-	oldTime = glutGet(GLUT_ELAPSED_TIME);
+	if (startSimulation) {
+		long long deltaTime = glutGet(GLUT_ELAPSED_TIME) - oldTime;
+		e->update(deltaTime);
+		glutPostRedisplay();
+		oldTime = glutGet(GLUT_ELAPSED_TIME);
+	}else
+		oldTime = glutGet(GLUT_ELAPSED_TIME);
 	
 }
 
@@ -164,6 +168,7 @@ void key(unsigned char key, int x, int y){
 		case 'x': angY=angY-5; break;
 		case 'd': angZ=angZ+5; break;
 		case 'c': angZ=angZ-5; break;
+		case 'p': startSimulation = true; break;
 		//case 'q': e->mover(-1); break;
 		//case 'w': e->mover(1); break;
 		default:

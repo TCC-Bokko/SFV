@@ -17,6 +17,7 @@ public:
 	void Pstatus();
 
 protected:
+	PuntoVector3D* lastPosition;
 	PuntoVector3D* velocity;
 	PuntoVector3D* acceletarion;
 	float mass;
