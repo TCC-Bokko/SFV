@@ -30,6 +30,7 @@ void particula::Pstatus() {
 void particula::update(long long deltaTime) {
 	*lastPosition = position;
 	PuntoVector3D aux(*velocity);
+	std::cout << "seg: " << (GLdouble)deltaTime / 1000 << "\n";
 	aux.escalar((GLdouble)deltaTime / 1000);
 	cout << "Vel: ";velocity->print();
 	cout << "dT: " << deltaTime << endl;

@@ -66,6 +66,9 @@
     <ClCompile Include="particula.cpp">
       <Filter>Source Files\Fisicas</Filter>
     </ClCompile>
+    <ClCompile Include="Solid_Sphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PuntoVector3D.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files\Fisicas</Filter>
     </ClInclude>
     <ClInclude Include="Escena.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Solid_Sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

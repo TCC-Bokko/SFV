@@ -60,6 +60,12 @@ void PuntoVector3D::normalizar() {
 	}
 }
 
+void PuntoVector3D::dividir(GLfloat factor) {
+	x /= factor;
+	y /= factor;
+	z /= factor;
+}
+
 void PuntoVector3D::sumar(PuntoVector3D* pv) {
 	x += pv->getX();
 	y += pv->getY();

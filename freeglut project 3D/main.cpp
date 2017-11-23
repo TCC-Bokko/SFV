@@ -30,7 +30,7 @@ GLdouble upX=0, upY=1, upZ=0;
 // Scene variables
 GLfloat angX, angY, angZ; 
 Escena*e;
-bool startSimulation = false;
+bool startSimulation = true;
 
 void buildSceneObjects() {	 
     angX=0.0f;

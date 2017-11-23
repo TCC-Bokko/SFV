@@ -23,6 +23,7 @@ public:
 	bool esPunto() const;
 	bool esVector() const;
 	void escalar(GLfloat factor);
+	void dividir(GLfloat factor);
 	void normalizar();
 	void sumar(PuntoVector3D* pv);
 	void restar(PuntoVector3D* other);

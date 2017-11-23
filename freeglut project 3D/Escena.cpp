@@ -1,5 +1,6 @@
 #include "Escena.h"
 #include "particula.h"
+#include "Solid_Sphere.h"
 
 
 PuntoVector3D* randomVector(float x, float y, float z) {
@@ -14,11 +15,12 @@ Escena::Escena()
 {
 	PuntoVector3D* origin = new PuntoVector3D(0, 0, 0, 0);
 	PuntoVector3D* v = new PuntoVector3D(0, 0, 0, 0);
-	for (int i = 0; i < MAX_PARTICLES; i++) {
+	//for (int i = 0; i < MAX_PARTICLES; i++) {
 		//pos, acc, vel, mass
-		objetos.push_back(new particula(new PuntoVector3D(rand()%10, 10, rand()%10, 1), new PuntoVector3D(0, 0, 0, 1), new PuntoVector3D(0, -((rand() % 0, 5) + 3), 0, 1), 1));
-	}
+		//objetos.push_back(new particula(new PuntoVector3D(rand()%10, 10, rand()%10, 1), new PuntoVector3D(0, 0, 0, 1), new PuntoVector3D(0, -((rand() % 0, 5) + 3), 0, 1), 1));
+	//}
 
+	objetos.push_back(new Solid_Sphere(new PuntoVector3D(rand() % 10, 10, rand() % 10, 1), new PuntoVector3D(0, 0, 0, 1), new PuntoVector3D(0, -((rand() % 0, 5) + 3), 0, 1), 1));
 }
 void Escena::update(long long deltaTime){
 	system("cls");
@@ -26,7 +28,7 @@ void Escena::update(long long deltaTime){
 	{
 		objeto->update(deltaTime);
 		//objeto->dibuja();
-		objeto->Pstatus();
+		//objeto->Pstatus();
 	}
 	draw();
 }

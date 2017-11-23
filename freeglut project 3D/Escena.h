@@ -15,6 +15,6 @@ public:
 	void update(long long deltaTime);
 	void draw();
 private:
-	std::vector<particula*> objetos;
+	std::vector<Objeto3D*> objetos;
 };
 #endif
