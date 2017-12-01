@@ -19,6 +19,9 @@ public:
 	GLfloat getX() const;
 	GLfloat getY() const;
 	GLfloat getZ() const;
+	void setX(GLfloat x);
+	void setY(GLfloat y);
+	void setZ(GLfloat z);
 	void setPosition(GLfloat x, GLfloat y, GLfloat z);
 	bool esPunto() const;
 	bool esVector() const;

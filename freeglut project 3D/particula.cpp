@@ -29,11 +29,15 @@ void particula::Pstatus() {
 
 void particula::update(long long deltaTime) {
 	*lastPosition = position;
-	PuntoVector3D aux(*velocity);
-	aux.escalar((GLdouble)deltaTime / 1000);
+
+	PuntoVector3D acc(*acceletarion);
+	PuntoVector3D vel(*velocity);
+	acc.escalar((GLfloat)deltaTime / 1000);
+	vel.sumar(&acc);
+	vel.escalar((GLdouble)deltaTime / 1000);
 	cout << "Vel: ";velocity->print();
 	cout << "dT: " << deltaTime << endl;
-	position->sumar(&aux);
+	position->sumar(&vel);
 	//vida--;
 	if (position->getY() < 0) position->setPosition(position->getX(), 5, position->getZ());
 }

@@ -30,6 +30,21 @@ GLfloat PuntoVector3D::getZ() const {
 	return z;
 }
 
+void PuntoVector3D::setX(GLfloat x)
+{
+	this->x = x;
+}
+
+void PuntoVector3D::setY(GLfloat y)
+{
+	this->y = y;
+}
+
+void PuntoVector3D::setZ(GLfloat z)
+{
+	this->z = z;
+}
+
 void PuntoVector3D::setPosition(GLfloat x, GLfloat y, GLfloat z)
 {
 	this->x = x;
