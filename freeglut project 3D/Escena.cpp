@@ -1,6 +1,8 @@
 #include "Escena.h"
 #include "particula.h"
 #include "Solid_Sphere.h"
+#include "Pelota.h"
+#include "Pared.h"
 
 
 PuntoVector3D* randomVector(float x, float y, float z) {
@@ -15,12 +17,14 @@ Escena::Escena()
 {
 	PuntoVector3D* origin = new PuntoVector3D(0, 0, 0, 0);
 	PuntoVector3D* v = new PuntoVector3D(0, 0, 0, 0);
-	//for (int i = 0; i < MAX_PARTICLES; i++) {
-		//pos, acc, vel, mass
-		//objetos.push_back(new particula(new PuntoVector3D(rand()%10, 10, rand()%10, 1), new PuntoVector3D(0, 0, 0, 1), new PuntoVector3D(0, -((rand() % 0, 5) + 3), 0, 1), 1));
-	//}
+	objetos.push_back(new Pelota(new PuntoVector3D(20, 10, 20, 0), new PuntoVector3D(0, 0, 0, 1), new PuntoVector3D(0, 0, 0, 1), 1));
 
-	objetos.push_back(new Solid_Sphere(new PuntoVector3D(rand() % 10, 10, rand() % 10, 1), new PuntoVector3D(0, 0, 0, 1), new PuntoVector3D(0, -((rand() % 0, 5) + 3), 0, 1), 1));
+	objetos.push_back(new Pared(new PuntoVector3D(0, 10, 10, 0), 1, 0.82f, 0.1f, 0.012f, new PuntoVector3D(0, 1, 0, 1), 0));
+
+	objetos.push_back(new Pared(new PuntoVector3D(10, 10, 0, 0), 1, 0.56f, 0.29f, 0.04f, new PuntoVector3D(0, 1, 0, 1), 90));
+
+	objetos.push_back(new Pared(new PuntoVector3D(10, 0, 10, 0), 1, 0.13f, 0.69f, 0.42f, new PuntoVector3D(0, 0, 1, 1), 90));
+
 }
 void Escena::update(long long deltaTime){
 	system("cls");

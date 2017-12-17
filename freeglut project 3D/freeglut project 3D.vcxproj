@@ -75,7 +75,9 @@
     <ClCompile Include="Malla.cpp" />
     <ClCompile Include="ObjetoCuadrico.cpp" />
     <ClCompile Include="ParcialDisk.cpp" />
+    <ClCompile Include="Pared.cpp" />
     <ClCompile Include="particula.cpp" />
+    <ClCompile Include="Pelota.cpp" />
     <ClCompile Include="PuntoVector3D.cpp" />
     <ClCompile Include="Solid_Sphere.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -90,7 +92,9 @@
     <ClInclude Include="Objeto3D.h" />
     <ClInclude Include="ObjetoCuadrico.h" />
     <ClInclude Include="ParcialDisk.h" />
+    <ClInclude Include="Pared.h" />
     <ClInclude Include="particula.h" />
+    <ClInclude Include="Pelota.h" />
     <ClInclude Include="PuntoVector3D.h" />
     <ClInclude Include="Solid_Sphere.h" />
     <ClInclude Include="Sphere.h" />

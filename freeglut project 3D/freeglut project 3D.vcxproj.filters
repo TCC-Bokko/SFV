@@ -69,6 +69,12 @@
     <ClCompile Include="Solid_Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pelota.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pared.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PuntoVector3D.h">
@@ -108,6 +114,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Solid_Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pelota.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
