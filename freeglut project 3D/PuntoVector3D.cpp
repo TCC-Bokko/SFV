@@ -17,6 +17,14 @@ PuntoVector3D::PuntoVector3D(PuntoVector3D & other)
 	this->pv = other.pv;
 }
 
+PuntoVector3D::PuntoVector3D(PuntoVector3D * pOther)
+{
+	this->x = pOther->x;
+	this->y = pOther->y;
+	this->z = pOther->z;
+	this->pv = pOther->pv;
+}
+
 PuntoVector3D::~PuntoVector3D() {}
 
 GLfloat PuntoVector3D::getX() const  {
@@ -38,11 +46,11 @@ void PuntoVector3D::setPosition(GLfloat x, GLfloat y, GLfloat z)
 }
 
 bool PuntoVector3D::esPunto() const{
-	return pv == 1;
+	return pv == PUNTO;
 }
 
 bool PuntoVector3D::esVector() const{
-	return pv == 0;
+	return pv == VECTOR;
 }
 
 void PuntoVector3D::escalar(GLfloat factor) {
@@ -97,12 +105,81 @@ PuntoVector3D* PuntoVector3D::productoVectorial(PuntoVector3D* v) {
 	return new PuntoVector3D(resx, resy, resz, 0);
 }
 
+PuntoVector3D & PuntoVector3D::operator=(PuntoVector3D & other)
+{
+	x = other.getX();
+	y = other.getY();
+	z = other.getZ();
+	pv = other.pv;
+	return *this;
+}
+
 PuntoVector3D & PuntoVector3D::operator=(PuntoVector3D * other)
 {
 	x = other->getX();
 	y = other->getY();
 	z = other->getZ();
 	pv = other->pv;
+	return *this;
+}
+
+PuntoVector3D & PuntoVector3D::operator*=(GLfloat scalar)
+{
+	x *= scalar;
+	y *= scalar;
+	z *= scalar;
+	return *this;
+}
+
+PuntoVector3D PuntoVector3D::operator*(GLfloat scalar)
+{
+	PuntoVector3D ret(this->clonar());
+	ret *= scalar;
+	return ret;
+}
+
+PuntoVector3D PuntoVector3D::operator+(PuntoVector3D & other)
+{
+	PuntoVector3D ret(this->clonar());
+	ret += other;
+	return ret;
+}
+
+PuntoVector3D & PuntoVector3D::operator+=(PuntoVector3D & other)
+{
+	x += other.x;
+	y += other.y;
+	z += other.z;
+	return *this;
+}
+
+PuntoVector3D PuntoVector3D::operator-(PuntoVector3D & other)
+{
+	PuntoVector3D ret(this->clonar());
+	ret -= other;
+	return ret;
+}
+
+PuntoVector3D & PuntoVector3D::operator-=(PuntoVector3D & other)
+{
+	x -= other.x;
+	y -= other.y;
+	z -= other.z;
+	return *this;
+}
+
+PuntoVector3D PuntoVector3D::operator/(GLfloat scalar)
+{
+	PuntoVector3D ret(this->clonar());
+	ret /= scalar;
+	return ret;
+}
+
+PuntoVector3D & PuntoVector3D::operator/=(GLfloat scalar)
+{
+	x /= scalar;
+	y /= scalar;
+	z /= scalar;
 	return *this;
 }
 

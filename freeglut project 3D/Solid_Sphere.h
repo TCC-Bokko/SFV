@@ -10,12 +10,12 @@ public:
 	void update(long long deltaTime);
 	void dibuja();
 private:
-	PuntoVector3D* lastPosition;
-	PuntoVector3D* velocity;
-	//PuntoVector3D* acceletarion;
-	PuntoVector3D* linearMomentum;
+	PuntoVector3D*	lastPosition;
+	PuntoVector3D*	velocity;
+	PuntoVector3D*	linearMomentum;
 	PuntoVector3D*	linearSpeed;
 	PuntoVector3D*	translation;
+	//PuntoVector3D* acceletarion;
 	float mass;
 
 	PuntoVector3D* force;

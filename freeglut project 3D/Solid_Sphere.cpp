@@ -13,6 +13,9 @@ Solid_Sphere::Solid_Sphere(PuntoVector3D * pos0, PuntoVector3D * a0, PuntoVector
 	force = new PuntoVector3D(0, 1, 1, 0);
 
 	linearMomentum = force;
+	linearSpeed = new PuntoVector3D;
+	translation = new PuntoVector3D;
+
 }
 
 
@@ -27,16 +30,17 @@ Solid_Sphere::~Solid_Sphere()
 void Solid_Sphere::update(long long deltaTime) 
 {
 	//momento linear
-	force->escalar(deltaTime / 1000);
-	linearMomentum->sumar(force);
+	*force *=((GLfloat)deltaTime / 1000);
+	*linearMomentum += *force;
 
 	//velocidad
-	linearMomentum->dividir(mass);
-	linearSpeed = linearMomentum;
+	*linearMomentum /= (GLfloat)mass;
+	*linearSpeed = *linearMomentum;
 
 	//movimiento (distancia y direccion)
-	linearSpeed->escalar(deltaTime / 1000);
-	translation = linearSpeed;
+
+	*linearSpeed *= ((GLfloat)deltaTime / 1000);
+	*translation = *linearSpeed;
 }
 
 void Solid_Sphere::dibuja() {
