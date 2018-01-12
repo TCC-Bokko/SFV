@@ -1,213 +1,338 @@
-#include <Windows.h>
-#include <gl/GL.h>
-#include <gl/GLU.h>
 
-#include "Escena.h"
+//#include "Objects.h"//incluir clases de cada objeto
+#include <stdlib.h>
+#include "gl/glut.h"
+#include <stdio.h>
+#include <math.h>
+#include <time.h>
+#include <ctype.h>
+//#include "glm.h"
+//#include "assert.h"
+//#include "MenuItems.h"
+//#include "Misc.h"
+//#include "Controls.h"
+//#include "Collision.h"
+//#include "IMGLoader.h"
+#include "Objeto.h"
+#include "Ball.h"
 
-#include <GL/freeglut.h>
-//#include <GL/glut.h>
+using namespace Physics;
 
-#include <iostream>
-using namespace std;
+//#define WINDOW_NAME "Ping Pong"
 
-// Freeglut parameters
-// Flag telling us to keep processing events
-// bool continue_in_main_loop= true; //(**)
+//	<Prototypes>
+void display(void);
+void myReshape(int w, int h);
+void camera();
+void mouseFunc(int button, int state, int x, int y);
+void idleFunc();
 
-// Viewport size
-int WIDTH= 500, HEIGHT= 500;
+int gravityIsOn;
+float gravity;
+float friction;
+//pixel *img;
 
-long long oldTime = 0;
-
-// Viewing frustum parameters
-GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
-
-// Camera parameters
-GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
-GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
-GLdouble upX=0, upY=1, upZ=0;
-
-// Scene variables
-GLfloat angX, angY, angZ; 
-Escena*e;
-
-void buildSceneObjects() {	 
-    angX=0.0f;
-    angY=0.0f;
-	angZ = 0.0f;
-
-	e = new Escena();
-}
-
-void initGL() {	 		 
-	glClearColor(0.6f,0.7f,0.8f,1.0);
-      
-	glEnable(GL_COLOR_MATERIAL);
-	glMaterialf(GL_FRONT, GL_SHININESS, 0.9f);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_NORMALIZE);
-
-	buildSceneObjects();
-
-	// Light0
-	glEnable(GL_LIGHTING);  
-    glEnable(GL_LIGHT0);
-    GLfloat d[]={0.7f,0.5f,0.5f,1.0f};
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
-    GLfloat a[]={0.3f,0.3f,0.3f,1.0f};
-    glLightfv(GL_LIGHT0, GL_AMBIENT, a);
-	GLfloat s[]={1.0f,1.0f,1.0f,1.0f};
-    glLightfv(GL_LIGHT0, GL_SPECULAR, s);
-	GLfloat p[]={25.0f, 25.0f, 25.0f, 1.0f};	 
-	glLightfv(GL_LIGHT0, GL_POSITION, p);
-
-	// Camera set up
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
-
-	// Frustum set up
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();  
-	glFrustum(xLeft, xRight, yBot, yTop, N, F);
-	//glOrtho(xLeft, xRight, yBot, yTop, N, F);
-
-	// Viewport set up
-    glViewport(0, 0, WIDTH, HEIGHT);  	
- }
-
-void display(void) {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
-	 
-	glMatrixMode(GL_MODELVIEW);	 
-	glPushMatrix();	 
-		// Rotating the scene
-		glRotatef(angX, 1.0f, 0.0f, 0.0f);
-        glRotatef(angY, 0.0f, 1.0f, 0.0f);
-        glRotatef(angZ, 0.0f, 0.0f, 1.0f);
-		
-		glLineWidth(1.5f);
-		// Drawing axes
-		glBegin( GL_LINES );			
-			glColor3f(1.0,0.0,0.0); 
-			glVertex3f(0, 0, 0);
-			glVertex3f(20, 0, 0);	     
-	 
-			glColor3f(0.0,1.0,0.0); 
-			glVertex3f(0, 0, 0);
-			glVertex3f(0, 20, 0);	 
-	 
-			glColor3f(0.0,0.0,1.0); 
-			glVertex3f(0, 0, 0);
-			glVertex3f(0, 0, 20);	     
-		glEnd();
-		 		
-		// Drawing the scene	 		 
-		//glColor3f(1.0, 1.0, 1.0);
-		//glutSolidSphere(6, 50, 60); //Sphere: radius=6, meridians=50, parallels=60
-		e->dibuja();
-	glPopMatrix();
- 
-	glFlush();
-	glutSwapBuffers();
-}
+Objeto * ball;
+void initializeVariables()
+{
+	gravity = 1;
+	// <Racket>
+	//gameIsPaused = 1;
+	gravityIsOn = 1;
 
 
-void resize(int newWidth, int newHeight) {
-	WIDTH= newWidth;
-	HEIGHT= newHeight;
-	GLdouble RatioViewPort= (float)WIDTH/(float)HEIGHT;
-	glViewport (0, 0, WIDTH, HEIGHT) ;
-   
-	GLdouble SVAWidth= xRight-xLeft;
-	GLdouble SVAHeight= yTop-yBot;
-	GLdouble SVARatio= SVAWidth/SVAHeight;
-	if (SVARatio >= RatioViewPort) {		 
-		GLdouble newHeight= SVAWidth/RatioViewPort;
-		GLdouble yMiddle= ( yBot+yTop )/2.0;
-		yTop= yMiddle + newHeight/2.0;
-		yBot= yMiddle - newHeight/2.0;
-    }
-	else {      
-		GLdouble newWidth= SVAHeight*RatioViewPort;
-		GLdouble xMiddle= ( xLeft+xRight )/2.0;
-		xRight= xMiddle + newWidth/2.0;
-		xLeft=  xMiddle - newWidth/2.0;
-	}
+	//img = NULL;
+	//exitMenu = 0;
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();   
-	glOrtho(xLeft, xRight, yBot, yTop, N, F);
-}
-void update(){
-	long long deltaTime = oldTime - glutGet(GLUT_ELAPSED_TIME);
-	e->update(deltaTime);
-	glutPostRedisplay();
-	oldTime = glutGet(GLUT_ELAPSED_TIME);
+	friction = 0.10;
+
+
+	// Ball
+	ball = new Ball(Punto(12.5, 7, 1), Vector(0, 10, 35), 0.01f, 0.5f);
+
+	// <Particle Sistem> 
+	// Inicializando sistema de particulas del impacto
+	/*sisImpact.location[0] = 12.5;
+	sisImpact.location[1] = 10;
+	sisImpact.location[2] = 35;
+
+	GLfloat pMass = 0.001;
+	GLfloat pRadius = 0.05;
+
+	sisImpact.particles[0] = part0;
+	sisImpact.particles[1] = part1;
+	sisImpact.particles[2] = part2;
+	sisImpact.particles[3] = part3;
+	sisImpact.particles[4] = part4;
+	sisImpact.particles[5] = part5;
+	sisImpact.particles[6] = part6;
+	sisImpact.particles[7] = part7;
+	sisImpact.particles[8] = part8;
+	sisImpact.particles[9] = part9;
 	
-}
-
-
-void key(unsigned char key, int x, int y){
-	bool need_redisplay = true;
-	switch (key) {
-		case 27:  /* Escape key */
-			//continue_in_main_loop = false; // (**)
-			//Freeglut's sentence for stopping glut's main loop (*)
-			glutLeaveMainLoop (); 
-			break;		 
-		case 'a': angX=angX+5; break;
-		case 'z': angX=angX-5; break; 
-		case 's': angY=angY+5; break;
-		case 'x': angY=angY-5; break;
-		case 'd': angZ=angZ+5; break;
-		case 'c': angZ=angZ-5; break;
-		//case 'q': e->mover(-1); break;
-		//case 'w': e->mover(1); break;
-		default:
-			need_redisplay = false;
-			break;
+	//Inicializando las particulas
+	for (GLint index = 0; index < 10; index++) {
+		sisImpact.particles[index].location[0] = sisImpact.location[0];
+		sisImpact.particles[index].location[1] = sisImpact.location[1];
+		sisImpact.particles[index].location[2] = sisImpact.location[2];
+		sisImpact.particles[index].radius = pRadius;
+		sisImpact.particles[index].mass = pMass;
 	}
 
-	if (need_redisplay)
-		glutPostRedisplay();
+	*/
+
+	// <TableUp>
+	/*tableUp.center[0] = 12.5;
+	tableUp.center[1] = 13;
+	tableUp.center[2] = -0.1;
+
+	tableUp.XYZ[0] = 25.0;
+	tableUp.XYZ[1] = 26.0;
+	tableUp.XYZ[2] = 0.4;
+
+	tableUp.coef = -0.8;
+	// </TableUp>
+
+
+	// <TableDown>
+
+	tableDown.center[0] = 12.5;
+	tableDown.center[1] = -0.1;
+	tableDown.center[2] = 13;
+
+	tableDown.XYZ[0] = 70;
+	tableDown.XYZ[1] = 0.4;
+	tableDown.XYZ[2] = 70;
+
+
+	tableDown.coef = -0.8;
+
+	*/
+	// </TableDown>
 }
 
-int main(int argc, char *argv[]){
-	cout<< "Starting console..." << endl;
-
-	int my_window; // my window's identifier
-
-	// Initialization
-	glutInitWindowSize(WIDTH, HEIGHT);
-	glutInitWindowPosition (0, 0);
-	//glutInitWindowPosition (140, 140);
+int main(int argc, char *argv[])
+{
+	//setUpScreen();
+	initializeVariables();
+	int my_window;
+	//mainMenu(); //Setup the main menu
+	glutInitWindowPosition(0, 0);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInit(&argc, argv);
-
-	// Window construction
+	glutInitWindowSize(800, 600); //Original 640x480
 	my_window = glutCreateWindow("Freeglut 3D-project");
-    
-	// Callback registration
-	glutReshapeFunc(resize);
-	glutKeyboardFunc(key);
+	//glutCreateWindow(WINDOW_NAME);
+	glutReshapeFunc(myReshape);
+
 	glutDisplayFunc(display);
-	glutIdleFunc(update);
-	// OpenGL basic setting
-	initGL();
 
-	// Freeglut's main loop can be stopped executing (**)
-	// while (continue_in_main_loop) glutMainLoopEvent();
+	glClearColor(0.36, 0.14, 0.57, 0);
 
-	// Classic glut's main loop can be stopped after X-closing the window,
-	// using the following freeglut's setting (*)
-	glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION) ;
-    
-	// Classic glut's main loop can be stopped in freeglut using (*)
-	glutMainLoop(); 
-  
-	// We would never reach this point using classic glut
-	system("PAUSE"); 
-   
+	/*glutSpecialFunc(kbSpecialFunc);
+	glutKeyboardFunc(kbDown);
+	glutKeyboardUpFunc(kbUp);*/
+	glutIdleFunc(idleFunc);
+	//glutMouseFunc(mouseFunc);
+
+	//pauseGame();
+
+	glEnable(GL_DEPTH_TEST);
+
+	glutMainLoop();
+
 	return 0;
+}
+
+void camera()
+{
+	//Front View
+	gluLookAt(12.5, 10.0, 50.0,
+		12.5, 0.0, 0.0,
+		0.0, 1.0, 0.0);
+
+	glutPostRedisplay();
+}
+
+void display(void)
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
+
+	//checkKeyPressed();
+
+	/*if (gameIsPaused)
+	{
+		printMenu();
+		glFlush();
+		glutSwapBuffers();
+		return;
+	}*/
+
+	camera();
+	ball->draw();
+	//drawShadows();
+	//drawTable();
+	//drawPlane();
+	/*for (GLint index = 0; index < 10; index++) {
+
+		drawParticles(sisImpact.particles[index]);
+	}*/
+
+	glEnable(GL_LIGHTING);
+	//drawRacket(racket.location[0], racket.location[1], racket.location[2]);
+
+	glDisable(GL_LIGHTING);
+
+
+	//glutSetCursor(GLUT_CURSOR_NONE); //a la mierda el cursor del raton
+
+	glFlush();
+
+	glutSwapBuffers();
+
+	return;
+}
+
+
+void myReshape(int width, int height)
+{
+	if (height == 0)
+	{
+		height = 1;
+	}
+
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+
+
+	/*if (gameIsPaused)
+	{
+		gluOrtho2D(0.0, 768.0, 0.0, 480.0);
+		glutReshapeWindow(640, 480);
+	}*/
+	//else
+	//{
+		gluPerspective(45.0f, ((GLfloat)width) / ((GLfloat)height + 40), 0.01f, 100.0f);
+		glutReshapeWindow(768, 480);
+	//}
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+
+float forces(int i, int j)
+{
+	if (!1) //
+		return(0.0);
+	else if (j == 1)
+		return(-gravity);
+	else
+		return(0.0);
+}
+
+float forces222(int i, int j, float velocity)
+{
+	float frict = 1;
+	if (velocity > 0)
+	{
+		frict = -friction;
+	}
+	else if (velocity < 0)
+	{
+		frict = friction;
+	}
+
+
+	if (j == 1)
+	{
+		return((-(gravity - frict)));
+	}
+
+	return(frict);
+}
+
+
+/**
+* Text book Example on particle physics (Interactive Computer Graphics A Top Down Approach, fith edition PG 574),
+* adapted to work with spheres & incorparate better collision detection
+*/
+void idleFunc()
+{
+	static float lastTime = 0.0f, presentTime = 0.0f;
+	int i = 0, j;
+	float dt;
+
+	presentTime = glutGet(GLUT_ELAPSED_TIME);
+
+	/*if (gameIsPaused)
+	{
+	glutPostRedisplay();
+	lastTime = presentTime;
+	return;
+	}*/
+
+	dt = 0.001*(presentTime - lastTime);
+
+/*	for (j = 0; j<3; j++)
+	{
+		//guarda posicion como antigua
+		ball.oldLocation[j] = ball.location[j];
+
+		//calcula la nueva posición
+		ball.location[j] += dt*ball.velocity[j];
+		//Aplica las nuevas fuerzas
+
+		ball.velocity[j] += dt*forces222(i, j, ball.velocity[j]) / ball.mass;
+
+	}*/
+
+	//Actualización de la posición de las particulas en cada eje
+/*	for (GLint particle = 0; particle < 10; particle++) {
+		for (GLint axys = 0; axys < 3; axys++) {
+			//guarda la posicion como antigua
+			sisImpact.particles[particle].oldLocation[axys] = sisImpact.particles[particle].location[axys];
+			//Calcular la nueva posicion
+			sisImpact.particles[particle].location[axys] += dt*sisImpact.particles[particle].velocity[axys];
+			//aplica las fuerzas
+			sisImpact.particles[particle].velocity[axys] += dt*forces222(i, axys, sisImpact.particles[particle].velocity[j]) / sisImpact.particles[particle].mass;
+		}
+	}
+
+	racket.velocity[0] *= 0.9;
+	racket.velocity[2] *= 0.9;*/
+
+
+	//collisionDetection();
+	//racketCollision();
+
+
+
+
+
+	/*if (ball.velocity[2] > 0)
+	{
+	if (ball.location[2] > racket.location[2] - 10 && ball.location[2] < racket.location[2] + 10)
+	{
+	if (racket.location[1] < ball.location[1])
+	{
+	racket.location[1] = ball.location[1];
+	}
+
+	}
+	}*/
+
+
+	//Need to change this to the new method of collision detection
+	/*if (ball.location[2] <= -4.1 || ball.location[2] >= 50 || ball.location[1] <= -10.1)
+	{
+		resetBall();
+	}
+	*/
+	lastTime = presentTime;
+	glutPostRedisplay();
 }

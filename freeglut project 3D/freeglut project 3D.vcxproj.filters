@@ -13,143 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\ObjetosCompuestos">
-      <UniqueIdentifier>{c8424e3e-ae29-4c21-abfb-611a0e3d9b2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ObjetosCompuestos">
-      <UniqueIdentifier>{edf96e04-38d1-48a8-8726-6e74b196c0d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ObjetosCuádricos">
-      <UniqueIdentifier>{aeb3e696-eda9-4870-bf9e-3d163726f904}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ObjetosCuádricos">
-      <UniqueIdentifier>{fe652e1f-cda6-4f61-8b51-491faaba3842}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Fisicas">
-      <UniqueIdentifier>{99b471e6-dbf0-4f2d-8779-1c48256c866d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Fisicas">
-      <UniqueIdentifier>{d9961b7a-3e80-40ab-8e29-5bbf3c375b51}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Particulas">
-      <UniqueIdentifier>{0a09c344-28e4-4d0f-9551-712488f2e403}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Particulas">
-      <UniqueIdentifier>{2bc31056-b401-4669-809a-6a2573e73bb9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PuntoVector3D.cpp">
+    <ClCompile Include="Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ObjetoCompuesto.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjetoCuadrico.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Escena.cpp">
-      <Filter>Source Files\ObjetosCompuestos</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Source Files\ObjetosCuádricos</Filter>
-    </ClCompile>
-    <ClCompile Include="Cylinder.cpp">
-      <Filter>Source Files\ObjetosCuádricos</Filter>
-    </ClCompile>
-    <ClCompile Include="Malla.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Disk.cpp">
-      <Filter>Source Files\ObjetosCuádricos</Filter>
-    </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Source Files\ObjetosCuádricos</Filter>
-    </ClCompile>
-    <ClCompile Include="ParcialDisk.cpp">
-      <Filter>Source Files\ObjetosCuádricos</Filter>
-    </ClCompile>
-    <ClCompile Include="TAfin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="particula.cpp">
-      <Filter>Source Files\Fisicas</Filter>
-    </ClCompile>
-    <ClCompile Include="SistemaPart.cpp">
-      <Filter>Source Files\Fisicas</Filter>
-    </ClCompile>
-    <ClCompile Include="EsfPar.cpp">
-      <Filter>Source Files\Particulas</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicComponent.cpp">
+    <ClCompile Include="Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PuntoVector3D.h">
+    <ClInclude Include="Objeto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objeto3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjetoCompuesto.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjetoCuadrico.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Escena.h">
-      <Filter>Header Files\ObjetosCompuestos</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files\ObjetosCuádricos</Filter>
-    </ClInclude>
-    <ClInclude Include="Cylinder.h">
-      <Filter>Header Files\ObjetosCuádricos</Filter>
-    </ClInclude>
-    <ClInclude Include="Malla.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Disk.h">
-      <Filter>Header Files\ObjetosCuádricos</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Header Files\ObjetosCuádricos</Filter>
-    </ClInclude>
-    <ClInclude Include="ParcialDisk.h">
-      <Filter>Header Files\ObjetosCuádricos</Filter>
-    </ClInclude>
-    <ClInclude Include="TAfin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SistemaPart.h">
-      <Filter>Header Files\Fisicas</Filter>
-    </ClInclude>
-    <ClInclude Include="EsfPar.h">
-      <Filter>Header Files\Particulas</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Header Files\Fisicas</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicComponent.h">
+    <ClInclude Include="Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
