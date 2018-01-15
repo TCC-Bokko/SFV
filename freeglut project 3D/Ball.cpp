@@ -62,11 +62,25 @@ Vector Ball::forces222()
 	return Vector(frictX, -(GRAVITY - frictY), frictZ);
 }
 
-void Ball::update(unsigned int deltaTime)
+void Ball::update(double deltaTime)
 {
-	std::cout << deltaTime << "\n";
+	//std::cout << deltaTime << "\n";
 	oldLocation = location;
-	location.set(velocity.getX() * deltaTime * 0.001, velocity.getY() * deltaTime * 0.001, velocity.getZ() * deltaTime * 0.001);
+	float x, y, z;
+	x = location.getX();
+	y = location.getY();
+	z = location.getZ();
+
+	x += velocity.getX()*deltaTime;
+	y += velocity.getY()*deltaTime;
+	z += velocity.getZ()*deltaTime;
+	
+	location.set(x, y, z);
+
+
+
+	//location.set(velocity.getX() * deltaTime, velocity.getY() * deltaTime, velocity.getZ() * deltaTime);
+	//location.set(velocity.getX() * deltaTime * 0.001, velocity.getY() * deltaTime * 0.001, velocity.getZ() * deltaTime * 0.001);
 	//velocity += deltaTime*forces222() / mass;
 
 		//ball.velocity[j] += dt*forces222(i, j, ball.velocity[j]) / ball.mass;

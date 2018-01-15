@@ -15,6 +15,7 @@
 //#include "IMGLoader.h"
 #include "Objeto.h"
 #include "Ball.h"
+#include "PSystem.h"
 
 using namespace Physics;
 
@@ -33,6 +34,7 @@ float friction;
 //pixel *img;
 
 Objeto * ball;
+PSystem * ps;
 void initializeVariables()
 {
 	gravity = 1;
@@ -48,8 +50,8 @@ void initializeVariables()
 
 
 	// Ball
-	ball = new Ball(Punto(12.5, 7, 1), Vector(0, 10, 35), 0.01f, 1.0f);
-
+	ball = new Ball(Punto(12.5, 7, 1), Vector(2, 0, 0), 0.01f, 1.0f);
+	ps = new PSystem(Punto(12.5, 7, 1), 10, Vector(2, 0, 0), 0.2f);
 	// <Particle Sistem> 
 	// Inicializando sistema de particulas del impacto
 	/*sisImpact.location[0] = 12.5;
@@ -173,6 +175,7 @@ void display(void)
 
 	camera();
 	ball->draw();
+	ps->draw();
 	//drawShadows();
 	//drawTable();
 	//drawPlane();
@@ -246,7 +249,7 @@ float forces(int i, int j)
 
 float forces222(int i, int j, float velocity)
 {
-	float frict = 1;
+	float frict = 0.3;
 	if (velocity > 0)
 	{
 		frict = -friction;
@@ -274,13 +277,14 @@ void idleFunc()
 {
 	static float lastTime = 0.0f, presentTime = 0.0f;
 	int i = 0, j;
-	unsigned int dt;
+	double dt;
 
 	presentTime = glutGet(GLUT_ELAPSED_TIME);
 
-	dt = (presentTime - lastTime);
+	dt = 0.001*(presentTime - lastTime); // Sec to MiliSec
 
 	ball->update(dt);
+	ps->update(dt);
 
 	//Actualización de la posición de las particulas en cada eje
 /*	for (GLint particle = 0; particle < 10; particle++) {

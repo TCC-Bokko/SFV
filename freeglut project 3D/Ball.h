@@ -12,7 +12,7 @@ public:
 	
 	// De Objeto
 	void draw();
-	void update(unsigned int deltaTime);
+	void update(double deltaTime);
 
 	Vector forces222();
 
