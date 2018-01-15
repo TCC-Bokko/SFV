@@ -10,8 +10,11 @@ public:
 	Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius);
 	~Ball();
 	
+	// De Objeto
 	void draw();
-	void update(long deltaTime);
+	void update(unsigned int deltaTime);
+
+	Vector forces222();
 
 	Esfera* sphere;
 	GLfloat radius;

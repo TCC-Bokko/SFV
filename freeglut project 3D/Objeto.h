@@ -20,7 +20,7 @@ public:
 	GLfloat color[3];
 
 	virtual void draw() = 0;
-	virtual void update(long deltaTime) = 0;
+	virtual void update(unsigned int deltaTime) = 0;
 };
 
 #endif

@@ -48,7 +48,7 @@ void initializeVariables()
 
 
 	// Ball
-	ball = new Ball(Punto(12.5, 7, 1), Vector(0, 10, 35), 0.01f, 0.5f);
+	ball = new Ball(Punto(12.5, 7, 1), Vector(0, 10, 35), 0.01f, 1.0f);
 
 	// <Particle Sistem> 
 	// Inicializando sistema de particulas del impacto
@@ -181,10 +181,19 @@ void display(void)
 		drawParticles(sisImpact.particles[index]);
 	}*/
 
+	// Luces de la escena
 	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	GLfloat d[] = { 0.7f,0.5f,0.5f,1.0f };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
+	GLfloat a[] = { 0.3f,0.3f,0.3f,1.0f };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
+	GLfloat s[] = { 1.0f,1.0f,1.0f,1.0f };
+	glLightfv(GL_LIGHT0, GL_SPECULAR, s);
+	GLfloat p[] = { 25.0f, 25.0f, 25.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_POSITION, p);
 	//drawRacket(racket.location[0], racket.location[1], racket.location[2]);
 
-	glDisable(GL_LIGHTING);
 
 
 	//glutSetCursor(GLUT_CURSOR_NONE); //a la mierda el cursor del raton
@@ -265,31 +274,13 @@ void idleFunc()
 {
 	static float lastTime = 0.0f, presentTime = 0.0f;
 	int i = 0, j;
-	float dt;
+	unsigned int dt;
 
 	presentTime = glutGet(GLUT_ELAPSED_TIME);
 
-	/*if (gameIsPaused)
-	{
-	glutPostRedisplay();
-	lastTime = presentTime;
-	return;
-	}*/
+	dt = (presentTime - lastTime);
 
-	dt = 0.001*(presentTime - lastTime);
-
-/*	for (j = 0; j<3; j++)
-	{
-		//guarda posicion como antigua
-		ball.oldLocation[j] = ball.location[j];
-
-		//calcula la nueva posición
-		ball.location[j] += dt*ball.velocity[j];
-		//Aplica las nuevas fuerzas
-
-		ball.velocity[j] += dt*forces222(i, j, ball.velocity[j]) / ball.mass;
-
-	}*/
+	ball->update(dt);
 
 	//Actualización de la posición de las particulas en cada eje
 /*	for (GLint particle = 0; particle < 10; particle++) {
