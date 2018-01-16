@@ -35,8 +35,10 @@ float friction;
 //pixel *img;
 
 Objeto * ball;
-PSystem * ps;
 Pared* wall;
+Objeto * ball2;
+PSystem * ps; 
+PSystem * ps2;
 void initializeVariables()
 {
 	gravity = 1;
@@ -50,70 +52,16 @@ void initializeVariables()
 
 	friction = 0.10;
 
+	//ARREGLAR QUE SOLO SE GENEREN PARTICULAS EN EL CUADRANTE I (Meter valores negativos por ahí)
+	//METER GRAVEDAD a bolas
+	//QUE afecte la masa (menos masa más fácil mover)
 
 	// Ball
 	ball = new Ball(Punto(12.5, 7, 1), Vector(2, 0, 0), 0.01f, 1.0f);
-	ps = new PSystem(Punto(12.5, 7, 1), 10, Vector(0, 0, 0), 0.2f);
+	ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
+	ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
+	ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
 	wall = new Pared(Punto(11, 7, 1), 10, 15, 0.8f);
-	// <Particle Sistem> 
-	// Inicializando sistema de particulas del impacto
-	/*sisImpact.location[0] = 12.5;
-	sisImpact.location[1] = 10;
-	sisImpact.location[2] = 35;
-
-	GLfloat pMass = 0.001;
-	GLfloat pRadius = 0.05;
-
-	sisImpact.particles[0] = part0;
-	sisImpact.particles[1] = part1;
-	sisImpact.particles[2] = part2;
-	sisImpact.particles[3] = part3;
-	sisImpact.particles[4] = part4;
-	sisImpact.particles[5] = part5;
-	sisImpact.particles[6] = part6;
-	sisImpact.particles[7] = part7;
-	sisImpact.particles[8] = part8;
-	sisImpact.particles[9] = part9;
-	
-	//Inicializando las particulas
-	for (GLint index = 0; index < 10; index++) {
-		sisImpact.particles[index].location[0] = sisImpact.location[0];
-		sisImpact.particles[index].location[1] = sisImpact.location[1];
-		sisImpact.particles[index].location[2] = sisImpact.location[2];
-		sisImpact.particles[index].radius = pRadius;
-		sisImpact.particles[index].mass = pMass;
-	}
-
-	*/
-
-	// <TableUp>
-	/*tableUp.center[0] = 12.5;
-	tableUp.center[1] = 13;
-	tableUp.center[2] = -0.1;
-
-	tableUp.XYZ[0] = 25.0;
-	tableUp.XYZ[1] = 26.0;
-	tableUp.XYZ[2] = 0.4;
-
-	tableUp.coef = -0.8;
-	// </TableUp>
-
-
-	// <TableDown>
-
-	tableDown.center[0] = 12.5;
-	tableDown.center[1] = -0.1;
-	tableDown.center[2] = 13;
-
-	tableDown.XYZ[0] = 70;
-	tableDown.XYZ[1] = 0.4;
-	tableDown.XYZ[2] = 70;
-
-
-	tableDown.coef = -0.8;
-
-	*/
-	// </TableDown>
 }
 
 int main(int argc, char *argv[])
@@ -151,10 +99,14 @@ int main(int argc, char *argv[])
 
 void camera()
 {
-	//Front View
-	gluLookAt(12.5, 10.0, 50.0,
-		12.5, 0.0, 0.0,
-		0.0, 1.0, 0.0);
+	// CON ESTA CONFIGURACION LA POSICION DE LOS OBJETOS ES 
+	// X: (-) Izq, (+) Der
+	// Z: (-) Abj, (+) Arriba
+	// Y: (-) Se aleja, (+) Se acerca
+	gluLookAt(0.0, 0.0, 100.0, //EYE (Especifica la posición del ojo)
+		0.0, 0.0, 0.0,		 //Center (Especifica la posición del punto de referencia)
+		0, 1.0, 0);		 //UP (Especifica la dirección del vector UP)
+
 
 	glutPostRedisplay();
 }
@@ -176,17 +128,17 @@ void display(void)
 		return;
 	}*/
 
+	//ACTORES DE LA ESCENA
 	camera();
 	ball->draw();
+	ball2->draw();
 	ps->draw();
 	wall->draw();
+	ps2->draw();
 	//drawShadows();
 	//drawTable();
 	//drawPlane();
-	/*for (GLint index = 0; index < 10; index++) {
 
-		drawParticles(sisImpact.particles[index]);
-	}*/
 
 	// Luces de la escena
 	glEnable(GL_LIGHTING);
@@ -211,7 +163,6 @@ void display(void)
 
 	return;
 }
-
 
 void myReshape(int width, int height)
 {
@@ -239,7 +190,6 @@ void myReshape(int width, int height)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
-
 
 float forces(int i, int j)
 {
@@ -288,7 +238,10 @@ void idleFunc()
 	dt = 0.001*(presentTime - lastTime); // Sec to MiliSec
 
 	ball->update(dt);
+	ball2->update(dt);
 	ps->update(dt);
+	ps2->update(dt);
+
 
 	//Actualización de la posición de las particulas en cada eje
 /*	for (GLint particle = 0; particle < 10; particle++) {

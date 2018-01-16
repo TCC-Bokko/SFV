@@ -78,7 +78,11 @@ namespace Physics {
 		};
 		~Vector() {};
 
+
 		//Getters and setters///////
+		inline void setX(float a) { x = a; };
+		inline void setY(float a) { y = a; };
+		inline void setZ(float a) { z = a; };
 		inline float getX() { return x; };
 		inline float getY() { return z; };
 		inline float getZ() { return y; };
@@ -99,6 +103,13 @@ namespace Physics {
 			z *= escalar;
 			return *this;
 		}
+		Vector& operator=(const Vector& other) {
+			x = other.x;
+			y = other.y;
+			z = other.z;
+			return *this;
+		}
+
 		float modulo() {
 			return sqrt((x*x) + (y*y) + (z*z));
 		}
