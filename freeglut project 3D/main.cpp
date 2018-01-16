@@ -34,6 +34,7 @@ float friction;
 //pixel *img;
 
 Objeto * ball;
+Objeto * ball2;
 PSystem * ps; 
 PSystem * ps2;
 void initializeVariables()
@@ -49,11 +50,17 @@ void initializeVariables()
 
 	friction = 0.10;
 
+	//ARREGLAR QUE SOLO SE GENEREN PARTICULAS EN EL CUADRANTE I (Meter valores negativos por ahí)
+	//METER GRAVEDAD a bolas
+	//QUE afecte la masa (menos masa más fácil mover)
 
 	// Ball
-	ball = new Ball(Punto(12.5, 7, 1), Vector(2, 0, 0), 0.01f, 1.0f);
-	ps = new PSystem(Punto(12.5, 7, 1), 10, Vector(1, 1, 1), 0.2f);
-	ps2 = new PSystem(Punto(6, 3, 4), 20, Vector(2, 2, 2), 0.1f);
+	ball = new Ball(Punto(0, 0, 0), Vector(0, 4, 0), 0.01f, 1.0f); //Origen, velocidad, masa, radio
+	ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
+	ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
+	ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
+	
+	
 	// <TableUp>
 	/*tableUp.center[0] = 12.5;
 	tableUp.center[1] = 13;
@@ -119,10 +126,14 @@ int main(int argc, char *argv[])
 
 void camera()
 {
-	//Front View
-	gluLookAt(12.5, 10.0, 50.0,
-		12.5, 0.0, 0.0,
-		0.0, 1.0, 0.0);
+	// CON ESTA CONFIGURACION LA POSICION DE LOS OBJETOS ES 
+	// X: (-) Izq, (+) Der
+	// Z: (-) Abj, (+) Arriba
+	// Y: (-) Se aleja, (+) Se acerca
+	gluLookAt(0.0, 0.0, 100.0, //EYE (Especifica la posición del ojo)
+		0.0, 0.0, 0.0,		 //Center (Especifica la posición del punto de referencia)
+		0, 1.0, 0);		 //UP (Especifica la dirección del vector UP)
+
 
 	glutPostRedisplay();
 }
@@ -144,17 +155,16 @@ void display(void)
 		return;
 	}*/
 
+	//ACTORES DE LA ESCENA
 	camera();
 	ball->draw();
+	ball2->draw();
 	ps->draw();
 	ps2->draw();
 	//drawShadows();
 	//drawTable();
 	//drawPlane();
-	/*for (GLint index = 0; index < 10; index++) {
 
-		drawParticles(sisImpact.particles[index]);
-	}*/
 
 	// Luces de la escena
 	glEnable(GL_LIGHTING);
@@ -254,6 +264,7 @@ void idleFunc()
 	dt = 0.001*(presentTime - lastTime); // Sec to MiliSec
 
 	ball->update(dt);
+	ball2->update(dt);
 	ps->update(dt);
 	ps2->update(dt);
 

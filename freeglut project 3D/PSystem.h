@@ -13,7 +13,7 @@ class PSystem
 {
 public:
 	PSystem();
-	PSystem(Punto loc, int n, Vector sp, float r) : location(loc), np(n), speed(sp), radius(r) { setup(speed); }
+	PSystem(Punto loc, int n, Vector sp, float r, bool g, bool d) : location(loc), np(n), speed(sp), radius(r), gravity(g), debug(d) { setup(speed); }
 	~PSystem();
 
 	void setup(Vector speed);
@@ -24,9 +24,12 @@ public:
 	void debugMessage();
 	void draw();
 protected:
-
+	void calcV(double dt);
 
 private:
+	bool gravity;
+	bool debug;
+	float gForce;
 	Punto location; //Lugar de origen del sistema de partículas
 	int np; //Numero de particulas
 	float radius;
