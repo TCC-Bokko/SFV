@@ -51,7 +51,7 @@ void initializeVariables()
 
 	// Ball
 	ball = new Ball(Punto(12.5, 7, 1), Vector(2, 0, 0), 0.01f, 1.0f);
-	ps = new PSystem(Punto(12.5, 7, 1), 10, Vector(2, 0, 0), 0.2f);
+	ps = new PSystem(Punto(12.5, 7, 1), 10, Vector(1, 1, 1), 0.2f);
 	// <Particle Sistem> 
 	// Inicializando sistema de particulas del impacto
 	/*sisImpact.location[0] = 12.5;
