@@ -68,12 +68,14 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pared.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Objeto.h" />
+    <ClInclude Include="Pared.h" />
     <ClInclude Include="PSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

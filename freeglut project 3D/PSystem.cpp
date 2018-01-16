@@ -20,9 +20,11 @@ void PSystem::setup(Vector speed) {
 	Vector nSpeed;
 	//Vector direction(0,1,0);
 	sistema.resize(np);
-	
+	const float minV = 0.4f;
+	const float maxV = 1.2f;
 	for (int i = 0; i < sistema.size(); i++){
 		nSpeed = speed;
+		nSpeed.randomize(minV, maxV, minV, maxV, minV, maxV);
 		sistema[i] = new Ball(location, nSpeed, 0.00001f , radius);
 	}
 }

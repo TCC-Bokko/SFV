@@ -16,6 +16,7 @@
 #include "Objeto.h"
 #include "Ball.h"
 #include "PSystem.h"
+#include "Pared.h"
 
 using namespace Physics;
 
@@ -35,6 +36,7 @@ float friction;
 
 Objeto * ball;
 PSystem * ps;
+Pared* wall;
 void initializeVariables()
 {
 	gravity = 1;
@@ -51,7 +53,8 @@ void initializeVariables()
 
 	// Ball
 	ball = new Ball(Punto(12.5, 7, 1), Vector(2, 0, 0), 0.01f, 1.0f);
-	ps = new PSystem(Punto(12.5, 7, 1), 10, Vector(2, 0, 0), 0.2f);
+	ps = new PSystem(Punto(12.5, 7, 1), 10, Vector(0, 0, 0), 0.2f);
+	wall = new Pared(Punto(11, 7, 1), 10, 15, 0.8f);
 	// <Particle Sistem> 
 	// Inicializando sistema de particulas del impacto
 	/*sisImpact.location[0] = 12.5;
@@ -176,6 +179,7 @@ void display(void)
 	camera();
 	ball->draw();
 	ps->draw();
+	wall->draw();
 	//drawShadows();
 	//drawTable();
 	//drawPlane();

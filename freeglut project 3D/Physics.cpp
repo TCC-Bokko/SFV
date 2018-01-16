@@ -1,6 +1,7 @@
 //#include "PuntoVector3D.h"
 #include <vector>
 #include <math.h>
+#include <time.h>
 
 using namespace std;
 
@@ -101,7 +102,13 @@ namespace Physics {
 		float modulo() {
 			return sqrt((x*x) + (y*y) + (z*z));
 		}
-
+		//Other methods
+		void randomize(float maxX, float minX, float maxY, float minY, float maxZ, float minZ) {
+			srand(time(0));
+			x = minX + (((float)rand() / (float)RAND_MAX) * (maxX - minX));
+			y = minY + (((float)rand() / (float)RAND_MAX) * (maxY - minY));
+			z = minZ + (((float)rand() / (float)RAND_MAX) * (maxZ - minZ));
+		}
 	private:
 		float x, y, z;
 	};
@@ -229,8 +236,21 @@ namespace Physics {
 			return disMin >= distanceBetweenPoints(a->centro, b->centro);
 		}
 
-		static bool sphereAndPlane(Esfera* s, Plano* p) {
-			return s->radio > distancePoint2Plane(s->centro, p);
+		static bool sphereAndPlane(Esfera* s, Plano* p, Punto* outCollisionPoint) {
+			outCollisionPoint = nullptr;
+			float anglePlaneNormalAndSphereCenter = angleBetweenVectors(&p->getNormal(), new Vector(*s->centro, p->getPunto()));
+			Vector s_p(*s->centro, p->getPunto());
+			float maxAngle = asinf(s->radio / s_p.modulo());
+			if (anglePlaneNormalAndSphereCenter >= maxAngle) {
+				//Need comprobation//////////////////////////////////
+				float x = p->getNormal().getX() + s->centro->getX();
+				float y = p->getNormal().getY() + s->centro->getY();
+				float z = p->getNormal().getY() + s->centro->getY();
+				outCollisionPoint = new Punto(x, y, z);
+				/////////////////////////////////////////////////////
+				return true;
+			}
+			return false;
 		}
 
 	}
