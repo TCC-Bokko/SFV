@@ -1,6 +1,6 @@
 #include "PSystem.h"
 #include <iostream>
-
+#include <time.h>
 
 PSystem::PSystem()
 {
@@ -17,14 +17,14 @@ PSystem::~PSystem()
 }
 
 void PSystem::setup(Vector speed) {
-	
+	srand(time(0));
 	Vector nSpeed;
 	//Vector direction(0,1,0);
 	sistema.resize(np);
 	int rX, rY, rZ;
 	Vector finalDir;
 
-	std::cout << "Speed: (" << speed.getX() << ", " << speed.getY() << ", " << speed.getZ() << ")\n";
+	//std::cout << "Speed: (" << speed.getX() << ", " << speed.getY() << ", " << speed.getZ() << ")\n";
 
 	//Obtener un porcentaje de direccion en cada eje
 	for (int i = 0; i < sistema.size(); i++) {
@@ -32,12 +32,12 @@ void PSystem::setup(Vector speed) {
 		finalDir.setX((rand() % 100) / 100.f);
 		finalDir.setY((rand() % 100) / 100.f);
 		finalDir.setZ((rand() % 100) / 100.f);
-		std::cout << "Final dir: (" << finalDir.getX() << ", " << finalDir.getY() << ", " << finalDir.getZ() << ");\n";
+		//std::cout << "Final dir: (" << finalDir.getX() << ", " << finalDir.getY() << ", " << finalDir.getZ() << ");\n";
 		//Aplicamos el modificador 
 		nSpeed.setX(finalDir.getX()*speed.getX());
 		nSpeed.setY(finalDir.getY()*speed.getY());
 		nSpeed.setZ(finalDir.getZ()*speed.getZ());
-		std::cout << "nSpeed: (" << nSpeed.getX() << ", " << nSpeed.getY() << ", " << nSpeed.getZ() << ");\n";
+		//std::cout << "nSpeed: (" << nSpeed.getX() << ", " << nSpeed.getY() << ", " << nSpeed.getZ() << ");\n";
 		//Metemos la velocidad modificada a las particulas
 		sistema[i] = new Ball(location, nSpeed, 0.0001f, radius);
 		//system("Pause");

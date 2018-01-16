@@ -34,7 +34,8 @@ float friction;
 //pixel *img;
 
 Objeto * ball;
-PSystem * ps;
+PSystem * ps; 
+PSystem * ps2;
 void initializeVariables()
 {
 	gravity = 1;
@@ -52,37 +53,7 @@ void initializeVariables()
 	// Ball
 	ball = new Ball(Punto(12.5, 7, 1), Vector(2, 0, 0), 0.01f, 1.0f);
 	ps = new PSystem(Punto(12.5, 7, 1), 10, Vector(1, 1, 1), 0.2f);
-	// <Particle Sistem> 
-	// Inicializando sistema de particulas del impacto
-	/*sisImpact.location[0] = 12.5;
-	sisImpact.location[1] = 10;
-	sisImpact.location[2] = 35;
-
-	GLfloat pMass = 0.001;
-	GLfloat pRadius = 0.05;
-
-	sisImpact.particles[0] = part0;
-	sisImpact.particles[1] = part1;
-	sisImpact.particles[2] = part2;
-	sisImpact.particles[3] = part3;
-	sisImpact.particles[4] = part4;
-	sisImpact.particles[5] = part5;
-	sisImpact.particles[6] = part6;
-	sisImpact.particles[7] = part7;
-	sisImpact.particles[8] = part8;
-	sisImpact.particles[9] = part9;
-	
-	//Inicializando las particulas
-	for (GLint index = 0; index < 10; index++) {
-		sisImpact.particles[index].location[0] = sisImpact.location[0];
-		sisImpact.particles[index].location[1] = sisImpact.location[1];
-		sisImpact.particles[index].location[2] = sisImpact.location[2];
-		sisImpact.particles[index].radius = pRadius;
-		sisImpact.particles[index].mass = pMass;
-	}
-
-	*/
-
+	ps2 = new PSystem(Punto(6, 3, 4), 20, Vector(2, 2, 2), 0.1f);
 	// <TableUp>
 	/*tableUp.center[0] = 12.5;
 	tableUp.center[1] = 13;
@@ -176,6 +147,7 @@ void display(void)
 	camera();
 	ball->draw();
 	ps->draw();
+	ps2->draw();
 	//drawShadows();
 	//drawTable();
 	//drawPlane();
@@ -208,7 +180,6 @@ void display(void)
 	return;
 }
 
-
 void myReshape(int width, int height)
 {
 	if (height == 0)
@@ -235,7 +206,6 @@ void myReshape(int width, int height)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
-
 
 float forces(int i, int j)
 {
@@ -285,6 +255,8 @@ void idleFunc()
 
 	ball->update(dt);
 	ps->update(dt);
+	ps2->update(dt);
+
 
 	//Actualización de la posición de las particulas en cada eje
 /*	for (GLint particle = 0; particle < 10; particle++) {
