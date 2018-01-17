@@ -139,6 +139,32 @@ namespace Physics {
 			d += -(p.getY()) * n.getY();
 			d += -(p.getZ()) * n.getZ();
 		}
+
+		Plano(const Vector& vNormal, const Punto& centro) {
+			//A·(x-x0) + B·(y-y0) + C·(z-z0) = 0
+			//nv.x * (x- c.x) + nv.y * (y - c.y) + nv*(z - c.z) = 0
+			//a * x + b * y + c * z = d
+			a = vNormal.getX();
+			b = vNormal.getY();
+			c = vNormal.getZ();
+			d = vNormal.getX() * (-centro.getX()) + (vNormal.getY() * (-centro.getY())) + ( vNormal.getZ() * (-centro.getZ()));
+
+			//x= 0, y = 0 z =-d/C
+			p = Punto(0, 0, d / c);
+
+			//x= 0, z = 0 y = -d/B
+			q = Punto(0, d / b, 0);
+
+			//y= 0, z = 0 x = -d/
+			r = Punto(d / a, 0, 0);
+
+			pq = Vector(p, q);
+			pr = Vector(p, r);
+			n = vNormal;
+
+
+
+		}
 		//Getters
 		inline float getA() { return a; }
 		inline float getB() { return b; }
@@ -153,6 +179,26 @@ namespace Physics {
 		inline Punto&	getPunto()	{ return p; }
 		inline Vector&	getNormal()	{ return n; }
 
+
+		void cambiarNormal(const Vector& newNormal, const Punto& centro) {
+			a = newNormal.getX();
+			b = newNormal.getY();
+			c = newNormal.getZ();
+			d = newNormal.getX() * (-centro.getX()) + (newNormal.getY() * (-centro.getY())) + (newNormal.getZ() * (-centro.getZ()));
+
+			//x= 0, y = 0 z =-d/C
+			p = Punto(0, 0, d / c);
+
+			//x= 0, z = 0 y = -d/B
+			q = Punto(0, d / b, 0);
+
+			//y= 0, z = 0 x = -d/
+			r = Punto(d / a, 0, 0);
+
+			pq = Vector(p, q);
+			pr = Vector(p, r);
+			n = newNormal;
+		}
 	private:
 		float a, b, c, d;
 		Punto p;
@@ -161,7 +207,6 @@ namespace Physics {
 		Vector pq;
 		Vector pr;
 		Vector n;
-
 	};
 	class Recta {
 		Recta(Punto& p0, Punto& p1) : p(p0), v(Vector(p0, p1)) {};

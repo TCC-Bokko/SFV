@@ -1,36 +1,32 @@
 #include "Pared.h"
+#include <iostream>
 
-
-Pared::Pared(Punto centro, float h, float w, float cr)
+Pared::Pared(Punto centro, Vector faceTo, float h, float w, float cr):
+	centro(centro), faceTo(faceTo), alto(h), ancho(w), cr(cr), plano(Plano(faceTo, centro))
 {
 	this->centro = centro;
 	color[0] = 0;
 	color[1] = 0;
 	color[2] = 1.0f;
-	Punto a(centro.getX() - w / 2, centro.getY() + h / 2, centro.getZ());
-	Punto b(centro.getX() + w / 2, centro.getY() + h / 2, centro.getZ());
-	Punto c(centro.getX() - w / 2, centro.getY() - h / 2, centro.getZ());
-	plano = new Plano(a, b, c);
 
-	alto = h;
-	ancho = w;
-	coecifienteRecuperacion = cr;
 }
 
 
 Pared::~Pared()
 {
-	delete plano;
 }
 
 void Pared::draw()
 {
 	glPushMatrix();
 		glTranslated(centro.getX(), centro.getY(), centro.getZ());
+		//Hay que rotar el cubo para que apunte a donde apunta el plano
+		glScaled(ancho, alto, 10);
 		glColor3f(color[0], color[1], color[2]);
-		glPushMatrix();
-			glScaled(ancho, alto, 10);
-			glutSolidCube(1);
-		glPopMatrix();
+		glRotated(angleBetweenVectors(faceTo, Vector(1, 0, 0)), 1, 0, 0);
+		glRotated(angleBetweenVectors(faceTo, Vector(0, 1, 0)), 0, 1, 0);
+		glRotated(angleBetweenVectors(faceTo, Vector(0, 0, 1)), 0, 0, 1);
+		glutSolidCube(1);
 	glPopMatrix();
+	cout << "////////////////////////////////////////"<<endl<<"////////////////////////////////////////" << endl;
 }

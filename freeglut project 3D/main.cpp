@@ -61,7 +61,7 @@ void initializeVariables()
 	ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
 	ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
 	ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
-	wall = new Pared(Punto(11, 7, 1), 10, 15, 0.8f);
+	wall = new Pared(Punto(11, 7, 1), Vector(0, 1, 1), 10, 15, 0.8f);
 }
 
 int main(int argc, char *argv[])
@@ -131,9 +131,9 @@ void display(void)
 	//ACTORES DE LA ESCENA
 	camera();
 	ball->draw();
+	wall->draw();
 	//ball2->draw();
 	//ps->draw();
-	//wall->draw();
 	//ps2->draw();
 
 	//drawShadows();
@@ -242,6 +242,7 @@ void idleFunc()
 	ball2->update(dt);
 	ps->update(dt);
 	ps2->update(dt);
+	wall->plano.cambiarNormal(Vector(wall->plano.getNormal().getX() + 1, wall->plano.getNormal().getY(), wall->plano.getNormal().getZ()), wall->centro);
 
 
 	//Actualización de la posición de las particulas en cada eje
