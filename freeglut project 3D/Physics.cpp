@@ -3,6 +3,12 @@
 #include <math.h>
 #include <time.h>
 
+const double TWO_PI = 6.28318530718;
+const double PI = 3.14159265359;
+const double HALF_PI = 1.57079632679;
+const double QUARTER_PI = 0.78539816339;
+const double e = 2.71828182846;
+
 using namespace std;
 
 namespace Physics {
@@ -293,7 +299,7 @@ namespace Physics {
 				angleBetweenVectors(p.getNormal(), Vector(s.getCentro(), p.getPunto()));
 			Vector s_p(s.getCentro(), p.getPunto());
 			float maxAngle = asinf(s.getRadio() / s_p.modulo());
-			if (anglePlaneNormalAndSphereCenter >= maxAngle) {
+			if (anglePlaneNormalAndSphereCenter + maxAngle > HALF_PI) {
 				//Need comprobation//////////////////////////////////
 				float x = p.getNormal().getX() + s.getCentro().getX();
 				float y = p.getNormal().getY() + s.getCentro().getY();
