@@ -6,7 +6,7 @@ Ball::Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius):
 	Objeto(location, velocity, mass), radius(radius)
 {
 	color[0] = color[1] = color[2] = 1.0f;
-	sphere = new Esfera(&location, radius);
+	sphere = new Esfera(location, radius);
 
 	//Inicializar la gravedad
 	aceleration = Vector(0, 0, 0);

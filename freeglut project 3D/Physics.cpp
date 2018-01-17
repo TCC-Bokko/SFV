@@ -1,5 +1,5 @@
-//#include "PuntoVector3D.h"
 #include <vector>
+#include <list>
 #include <math.h>
 #include <time.h>
 
@@ -10,39 +10,31 @@ namespace Physics {
 	{
 	public:
 		Punto() :x(0), y(0), z(0) {};
-		Punto(Punto& other) {
-			x = other.x;
-			y = other.y;
-			z = other.z;
-		};
-		Punto(float x, float y, float z) {
-			this->x = x;
-			this->y = y;
-			this->z = z;
-		};
+		Punto(const Punto& other) : x(other.x), y(other.y), z(other.z) {};
+		Punto(float x, float y, float z) : x(x), y(y), z(z) {};
 		~Punto() {};
 
 		inline float getX() const { return x; };
 		inline float getY() const { return y; };
 		inline float getZ() const { return z; };
 
-		inline void set(const float x_, const float y_, const float z_)
-		{
-			x = x_;
-			y = y_;
-			z = z_;
-		}
+		inline void setX(float nx) { x = nx; };
+		inline void setY(float ny) { y = ny; };
+		inline void setZ(float nz) { z = nz; };
+
+		inline void set(float x_, float y_, float z_) { x = x_;	y = y_;	z = z_; };
 		Punto operator+(const Punto& other) {
 			return Punto(x + other.x, y + other.y, z + other.z);
 		}
-		Punto& operator += (const Punto& other) {
+
+		Punto& operator+= (const Punto& other) {
 			x += other.x;
 			y += other.y;
 			z += other.z;
 			return *this;
 		}
 
-		Punto operator*(Punto& other)
+		Punto operator*(const Punto& other) const
 		{
 			return Punto(x * other.x, y * other.y, z * other.z);
 		}
@@ -53,7 +45,6 @@ namespace Physics {
 			return *this;
 		}
 
-
 	private:
 		float x, y, z;
 	};
@@ -62,21 +53,14 @@ namespace Physics {
 	{
 	public:
 		Vector() :x(0), y(0), z(0) {};
-		Vector(const Vector& other) {
-			x = other.x;
-			y = other.y;
-			z = other.z;
-		};
+		Vector(const Vector& other) :x(other.x), y(other.y), z(other.z) {};
+
 		Vector(Punto p0, Punto p1) {
 			x = p1.getX() - p0.getX();
 			y = p1.getY() - p0.getY();
 			z = p1.getZ() - p0.getZ();
 		}
-		Vector(const float x, const float y, const float z) {
-			this->x = x;
-			this->y = y;
-			this->z = z;
-		};
+		Vector(float x, float y, float z) : x(x), y(y), z(z) {};
 		~Vector() {};
 
 
@@ -84,6 +68,9 @@ namespace Physics {
 		inline void setX(float a) { x = a; };
 		inline void setY(float a) { y = a; };
 		inline void setZ(float a) { z = a; };
+		inline const float getX() const { return x; };
+		inline const float getY() const { return y; };
+		inline const float getZ() const { return z; };
 		inline float getX() { return x; };
 		inline float getY() { return y; };
 		inline float getZ() { return z; };
@@ -110,15 +97,15 @@ namespace Physics {
 			z = other.z;
 			return *this;
 		}
+
+		float modulo() {
+			return sqrt((x*x) + (y*y) + (z*z));
+		}
 		Vector& escalar(float escalar) {
 			x *= escalar;
 			y *= escalar;
 			z *= escalar;
 			return *this;
-		}
-
-		float modulo() {
-			return sqrt((x*x) + (y*y) + (z*z));
 		}
 		//Other methods
 		void randomize(float maxX, float minX, float maxY, float minY, float maxZ, float minZ) {
@@ -131,75 +118,71 @@ namespace Physics {
 		float x, y, z;
 	};
 
-	static Vector productoVectorial(Vector* u, Vector* v) {
-		float wx = (u->getY() * v->getZ()) - (u->getZ() * v->getY());
-		float wy = (u->getZ() * v->getX()) - (u->getX() * v->getZ());
-		float wz = (u->getX() * v->getY()) - (u->getY() * v->getX());
+	static Vector productoVectorial(const Vector& u, const Vector& v) {
+		float wx = (u.getY() * v.getZ()) - (u.getZ() * v.getY());
+		float wy = (u.getZ() * v.getX()) - (u.getX() * v.getZ());
+		float wz = (u.getX() * v.getY()) - (u.getY() * v.getX());
 		return Vector(wx, wy, wz);
 	}
 
 	class Plano {
 	public:
-		Plano(Punto* p_, Punto* q_, Punto* r_) :p(p_), q(q_), r(r_)
+		Plano(const Punto& p_, const Punto& q_, const Punto& r_) :
+			p(p_), q(q_), r(r_),
+			pq(Vector(p, q)), pr(Vector(p, r)), n(productoVectorial(pq, pr))
 		{
-			pq = new Vector(*p, *q);
-			pr = new Vector(*p, *r);
-			n = &productoVectorial(pq, pr);
+			a = n.getX();
+			b = n.getY();
+			c = n.getZ();
 
-			a = n->getX();
-			b = n->getY();
-			c = n->getZ();
-
-			d = -(p->getX()) * n->getX();
-			d += -(p->getY()) * n->getY();
-			d += -(p->getZ()) * n->getZ();
+			d = -(p.getX()) * n.getX();
+			d += -(p.getY()) * n.getY();
+			d += -(p.getZ()) * n.getZ();
 		}
 		//Getters
-		inline const float getA() { return a; }
-		inline const float getB() { return b; }
-		inline const float getC() { return c; }
-		inline const float getD() { return d; }
+		inline float getA() { return a; }
+		inline float getB() { return b; }
+		inline float getC() { return c; }
+		inline float getD() { return d; }
 
-		inline Vector	getPQ()		const { return *pq; }
-		inline Vector	getPR()		const { return *pr; }
-		inline Punto	getPunto()	const { return *p; }
-		inline Vector	getNormal()	const { return *n; }
+		inline const Vector&	getPQ()		const { return pq; }
+		inline const Vector&	getPR()		const { return pr; }
+		inline const Punto&		getPunto()	const { return p; }
+		inline const Vector&	getNormal()	const { return n; }
+
+		inline Punto&	getPunto()	{ return p; }
+		inline Vector&	getNormal()	{ return n; }
 
 	private:
 		float a, b, c, d;
-		Punto* p;
-		Punto* q;
-		Punto* r;
-		Vector* pq;
-		Vector* pr;
-		Vector* n;
+		Punto p;
+		Punto q;
+		Punto r;
+		Vector pq;
+		Vector pr;
+		Vector n;
 
 	};
 	class Recta {
-		Recta(Punto* p0, Punto* p1) {
-			this->p = p0;
-			this->v = new Vector(*p0, *p1);
-		};
-		Recta(Punto* p, Vector* v) {
-			this->p = p;
-			this->v = v;
-		};
-		Punto* p;
-		Vector* v;
+		Recta(Punto& p0, Punto& p1) : p(p0), v(Vector(p0, p1)) {};
+		Recta(Punto& p, Vector& v) :p(p), v(v) {};
+		Punto p;
+		Vector v;
 	};
 
 	class Esfera {
 	public:
-		Esfera(Punto* centro, float radio) {
-			this->centro = centro;
-			this->radio = radio;
-		};
+		Esfera(Punto& centro, float radio) :centro(centro), radio(radio) {};
 		~Esfera() {}
-
+		inline const float getRadio()const { return radio; };
+		inline float getRadio() { return radio; };
+		inline const Punto& getCentro() const { return centro; };
+		inline Punto& getCentro() { return centro; }
+	private:
 		float radio;
-		Punto* centro;
+		Punto centro;
 	};
-	static Vector fuerzaResultante(std::vector<Vector*> fuerzas) {
+	static Vector fuerzaResultante(std::list<Vector*> fuerzas) {
 		float x, y, z;
 		for (auto f : fuerzas) {
 			x += f->getX();
@@ -209,8 +192,8 @@ namespace Physics {
 		return Vector(x, y, z);
 	}
 
-	static double distanceBetweenPoints(Punto* a, Punto* b) {
-		return abs(a - b);
+	static double distanceBetweenPoints(const Punto& a, const Punto& b) {
+		return abs(Vector(a, b).modulo());
 	}
 	static double distancePoint2Plane(Punto* p, Plano* pl) {
 		double num = abs(
@@ -218,21 +201,27 @@ namespace Physics {
 			(pl->getB() * p->getY()) +
 			(pl->getC() * p->getZ()) +
 			pl->getD()
-		);
+			);
 		float den = pl->getNormal().modulo();
 		return num / den;
 	}
 
-	static double productoEscalar(Vector* u, Vector* v) {
-		float resul = u->getX() * v->getX();
-		resul += u->getY() * v->getY();
-		resul += u->getZ() * u->getZ();
-		return resul;
+	static double productoEscalar(Vector& u, Vector& v) {
+
+		return ((u.getX() * v.getX()) + (u.getY() * v.getY()) + (u.getZ() * u.getZ()));
 	}
 
-	static double angleBetweenVectors(Vector* v, Vector* u) {
-		return std::acos(productoEscalar(v, u) / (v->modulo()*u->modulo()));
+	static double angleBetweenVectors(Vector& v, Vector& u) {
+		return std::acos(productoEscalar(v, u) / (v.modulo() * u.modulo()));
 	}
+
+	template<class T>
+	T clamp(T& value, T minCap, T maxCap) {
+		if (value > maxCap) { value = maxCap; return maxCap; }
+		if (value < minCap) { value = minCap; return minCap; };
+		return value;
+	}
+
 	template <class T>
 	T determinante3x3(T det[3][3]) {
 		T result = 0;
@@ -249,22 +238,22 @@ namespace Physics {
 		return (det[0][1]) - (det[1][0]);
 	}
 	namespace Collisions {
-		static bool spheres(Esfera* a, Esfera* b) {
-			double disMin = a->radio + b->radio;
-			return disMin >= distanceBetweenPoints(a->centro, b->centro);
+		static bool spheres(const Esfera& a, const Esfera& b) {
+			double disMin = a.getRadio() + b.getRadio();
+			return disMin >= distanceBetweenPoints(a.getCentro(), b.getCentro());
 		}
 
-		static bool sphereAndPlane(Esfera* s, Plano* p, Punto* outCollisionPoint) {
-			outCollisionPoint = nullptr;
-			float anglePlaneNormalAndSphereCenter = angleBetweenVectors(&p->getNormal(), new Vector(*s->centro, p->getPunto()));
-			Vector s_p(*s->centro, p->getPunto());
-			float maxAngle = asinf(s->radio / s_p.modulo());
+		static bool sphereAndPlane(Esfera& s, Plano& p, Punto& outCollisionPoint) {
+			float anglePlaneNormalAndSphereCenter =
+				angleBetweenVectors(p.getNormal(), Vector(s.getCentro(), p.getPunto()));
+			Vector s_p(s.getCentro(), p.getPunto());
+			float maxAngle = asinf(s.getRadio() / s_p.modulo());
 			if (anglePlaneNormalAndSphereCenter >= maxAngle) {
 				//Need comprobation//////////////////////////////////
-				float x = p->getNormal().getX() + s->centro->getX();
-				float y = p->getNormal().getY() + s->centro->getY();
-				float z = p->getNormal().getY() + s->centro->getY();
-				outCollisionPoint = new Punto(x, y, z);
+				float x = p.getNormal().getX() + s.getCentro().getX();
+				float y = p.getNormal().getY() + s.getCentro().getY();
+				float z = p.getNormal().getY() + s.getCentro().getY();
+				outCollisionPoint = Punto(x, y, z);
 				/////////////////////////////////////////////////////
 				return true;
 			}
