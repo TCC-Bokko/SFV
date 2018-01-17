@@ -11,6 +11,10 @@ Pared::Pared(Punto centro, float h, float w, float cr)
 	Punto b(centro.getX() + w / 2, centro.getY() + h / 2, centro.getZ());
 	Punto c(centro.getX() - w / 2, centro.getY() - h / 2, centro.getZ());
 	plano = new Plano(&a, &b, &c);
+
+	alto = h;
+	ancho = w;
+	coecifienteRecuperacion = cr;
 }
 
 

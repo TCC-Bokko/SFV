@@ -7,6 +7,9 @@ Ball::Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius):
 {
 	color[0] = color[1] = color[2] = 1.0f;
 	sphere = new Esfera(&location, radius);
+
+	//Inicializar la gravedad
+	aceleration = Vector(0, 0, 0);
 }
 
 
@@ -25,64 +28,25 @@ void Ball::draw()
 }
 
 
-const float FRICTION = 0.10;
 const float GRAVITY = 1;
-Vector Ball::forces222()
-{
-	float frictX = 1;
-	float frictY = 1;
-	float frictZ = 1;
-
-	if (velocity.getX() > 0)
-	{
-		frictX = -FRICTION;
-	}
-	else if (velocity.getX() < 0)
-	{
-		frictX = FRICTION;
-	}
-
-	if (velocity.getY() > 0)
-	{
-		frictY = -FRICTION;
-	}
-	else if (velocity.getY() < 0)
-	{
-		frictY = FRICTION;
-	}
-	
-	if (velocity.getZ() > 0)
-	{
-		frictZ = -FRICTION;
-	}
-	else if (velocity.getZ() < 0)
-	{
-		frictZ = FRICTION;
-	}
-	return Vector(frictX, -(GRAVITY - frictY), frictZ);
-}
-
 void Ball::update(double deltaTime)
 {
-	//std::cout << deltaTime << "\n";
+	// Lo del valor absoluto negativo esta en testing
+	aceleration.setX(-std::abs((oldLocation.getX() - location.getX()) / deltaTime));
+	aceleration.setY((-std::abs(oldLocation.getY() - location.getY()) / deltaTime) - GRAVITY);
+	aceleration.setZ(-std::abs((oldLocation.getZ() - location.getZ()) / deltaTime));
+	//std::cout << oldLocation.getY() - location.getY() << "\n";
 	oldLocation = location;
 	float x, y, z;
 	x = location.getX();
 	y = location.getY();
 	z = location.getZ();
 
+	velocity += aceleration.escalar(deltaTime);
+
 	x += velocity.getX()*deltaTime;
 	y += velocity.getY()*deltaTime;
 	z += velocity.getZ()*deltaTime;
-	
+
 	location.set(x, y, z);
-
-
-
-	//location.set(velocity.getX() * deltaTime, velocity.getY() * deltaTime, velocity.getZ() * deltaTime);
-	//location.set(velocity.getX() * deltaTime * 0.001, velocity.getY() * deltaTime * 0.001, velocity.getZ() * deltaTime * 0.001);
-	//velocity += deltaTime*forces222() / mass;
-
-		//ball.velocity[j] += dt*forces222(i, j, ball.velocity[j]) / ball.mass;
-
 }

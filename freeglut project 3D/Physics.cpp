@@ -53,6 +53,7 @@ namespace Physics {
 			return *this;
 		}
 
+
 	private:
 		float x, y, z;
 	};
@@ -84,8 +85,8 @@ namespace Physics {
 		inline void setY(float a) { y = a; };
 		inline void setZ(float a) { z = a; };
 		inline float getX() { return x; };
-		inline float getY() { return z; };
-		inline float getZ() { return y; };
+		inline float getY() { return y; };
+		inline float getZ() { return z; };
 
 		//Operations///////////////
 		Vector operator+(const Vector& other) {
@@ -107,6 +108,12 @@ namespace Physics {
 			x = other.x;
 			y = other.y;
 			z = other.z;
+			return *this;
+		}
+		Vector& escalar(float escalar) {
+			x *= escalar;
+			y *= escalar;
+			z *= escalar;
 			return *this;
 		}
 

@@ -57,7 +57,7 @@ void initializeVariables()
 	//QUE afecte la masa (menos masa más fácil mover)
 
 	// Ball
-	ball = new Ball(Punto(12.5, 7, 1), Vector(2, 0, 0), 0.01f, 1.0f);
+	ball = new Ball(Punto(12.5, 40, 1), Vector(0, 0, 0), 0.01f, 1.0f);
 	ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
 	ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
 	ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
@@ -131,10 +131,11 @@ void display(void)
 	//ACTORES DE LA ESCENA
 	camera();
 	ball->draw();
-	ball2->draw();
-	ps->draw();
-	wall->draw();
-	ps2->draw();
+	//ball2->draw();
+	//ps->draw();
+	//wall->draw();
+	//ps2->draw();
+
 	//drawShadows();
 	//drawTable();
 	//drawPlane();

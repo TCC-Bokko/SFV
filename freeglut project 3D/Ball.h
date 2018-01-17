@@ -18,5 +18,7 @@ public:
 
 	Esfera* sphere;
 	GLfloat radius;
+	Vector aceleration;
+
 };
 #endif
