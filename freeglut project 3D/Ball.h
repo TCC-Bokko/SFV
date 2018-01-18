@@ -14,6 +14,7 @@ public:
 	// De Objeto
 	void draw();
 	void update(double deltaTime);
+	Esfera* getSphere() { return sphere; }
 
 	Vector forces222();
 

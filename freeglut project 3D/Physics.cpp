@@ -2,6 +2,7 @@
 #include <list>
 #include <math.h>
 #include <time.h>
+#include <iostream>
 
 const double TWO_PI = 6.28318530718;
 const double PI = 3.14159265359;
@@ -244,6 +245,7 @@ namespace Physics {
 		inline float getRadio() { return radio; };
 		inline const Punto& getCentro() const { return centro; };
 		inline Punto& getCentro() { return centro; }
+		void updateCentro(Punto c) { centro = c; }
 	private:
 		float radio;
 		Punto centro;
@@ -326,5 +328,22 @@ namespace Physics {
 			return false;
 		}
 
+		static bool sphereAndPlanoXZ(Esfera* s, PlanoXZ* p) {
+			std::cout << "\n\n________Sphere & PlaneXZ Collision checker _______\n";
+			std::cout << "Bola [ Centro: (" << s->getCentro().getX() << ", " << s->getCentro().getY() << ", " << s->getCentro().getZ() << ") /" << " / Radio: " << s->getRadio() << "]\n";
+			std::cout << "PlanoXZ [ Origen: (" << p->getOrigen().getX() << ", " << p->getOrigen().getY() << ", " << p->getOrigen().getZ() << ") /" <<
+				" Normal: (" << p->getNormal().getX() << ", " << p->getNormal().getY() << ", " << p->getNormal().getZ() << ")\n\n\n\n";
+			bool collided = false;
+			//Si la posicion Y de la bola + su radio es <
+			float posYplano = p->getOrigen().getY();
+			float posYbola = (s->getCentro().getY() - s->getRadio());
+			std::cout << "PosYBola = " << posYbola << "\nPosYplano = " << posYplano << "\n";
+			collided = (posYbola < posYplano);
+			if (collided) std::cout << "Collided = true\n";
+			else std::cout << "Collided = false\n";
+
+
+			return collided;
+		}
 	}
 }

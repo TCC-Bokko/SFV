@@ -34,6 +34,7 @@ int gravityIsOn;
 float gravity;
 float friction;
 bool debug;
+bool collisionDetected;
 //pixel *img;
 
 Objeto * ball;
@@ -48,7 +49,7 @@ void initializeVariables()
 	// <Racket>
 	//gameIsPaused = 1;
 	gravityIsOn = 1;
-
+	debug = true;
 
 	//img = NULL;
 	//exitMenu = 0;
@@ -59,11 +60,11 @@ void initializeVariables()
 	//METER GRAVEDAD a bolas
 	//QUE afecte la masa (menos masa más fácil mover)
 
-	// Ball
+	// Actores de las escena
 	ball = new Ball(Punto(12.5, 40, 1), Vector(0, 0, 0), 0.01f, 1.0f);
-	ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
-	ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
-	ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
+	//ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
+	//ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
+	//ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
 	wall = new Pared(Punto(11, 7, 1), Vector(0, 1, 1), 10, 15, 0.8f);
 	plane = new Plane(Punto(-30.f, -25.f, -30.f), 60.f);
 }
@@ -232,15 +233,14 @@ float forces222(int i, int j, float velocity)
 void debugMessage() {
 	system("cls");
 	dynamic_cast<Ball*> (ball)->debugMessage();
-	dynamic_cast<PSystem*> (ps)->debugMessage();
-	dynamic_cast<PSystem*> (ps2)->debugMessage();
+	//dynamic_cast<PSystem*> (ps)->debugMessage();
+	//dynamic_cast<PSystem*> (ps2)->debugMessage();
 	dynamic_cast<Pared*> (wall)->debugMessage();
 	dynamic_cast<Plane*> (plane)->debugMessage();
 }
 
-/**
-* Text book Example on particle physics (Interactive Computer Graphics A Top Down Approach, fith edition PG 574),
-* adapted to work with spheres & incorparate better collision detection
+/*
+Funcion Update del Main
 */
 void idleFunc()
 {
@@ -255,11 +255,21 @@ void idleFunc()
 	if (debug) debugMessage();
 
 	ball->update(dt);
-	ball2->update(dt);
-	ps->update(dt);
-	ps2->update(dt);
+	//ball2->update(dt);
+	//ps->update(dt);
+	//ps2->update(dt);
 	wall->plano.cambiarNormal(Vector(wall->plano.getNormal().getX() + 1, wall->plano.getNormal().getY(), wall->plano.getNormal().getZ()), wall->centro);
 
+
+	//std::cout << "Previo a deteccion colision\n";
+	collisionDetected = Collisions::sphereAndPlanoXZ(dynamic_cast<Ball*>(ball)->getSphere(), dynamic_cast<Plane*>(plane)->getPlanoXZ());
+	if (collisionDetected) {
+		std::cout << "Colision detectada\n";
+		collisionDetected = true;
+	}
+	else {
+		std::cout << "NO HAY COLISION\n";
+	}
 
 	//Actualización de la posición de las particulas en cada eje
 /*	for (GLint particle = 0; particle < 10; particle++) {
