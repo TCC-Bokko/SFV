@@ -15,7 +15,8 @@ public:
 	void draw();
 	void update(double deltaTime);
 	Esfera* getSphere() { return sphere; }
-
+	void updatePhysics(Punto p, Vector impDir, GLfloat CR);
+	bool physicsUpdated = false;
 	Vector forces222();
 
 	Esfera* sphere;

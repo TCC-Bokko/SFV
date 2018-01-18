@@ -329,18 +329,18 @@ namespace Physics {
 		}
 
 		static bool sphereAndPlanoXZ(Esfera* s, PlanoXZ* p) {
-			std::cout << "\n\n________Sphere & PlaneXZ Collision checker _______\n";
-			std::cout << "Bola [ Centro: (" << s->getCentro().getX() << ", " << s->getCentro().getY() << ", " << s->getCentro().getZ() << ") /" << " / Radio: " << s->getRadio() << "]\n";
-			std::cout << "PlanoXZ [ Origen: (" << p->getOrigen().getX() << ", " << p->getOrigen().getY() << ", " << p->getOrigen().getZ() << ") /" <<
-				" Normal: (" << p->getNormal().getX() << ", " << p->getNormal().getY() << ", " << p->getNormal().getZ() << ")\n\n\n\n";
+			//std::cout << "\n\n________Sphere & PlaneXZ Collision checker _______\n";
+			//std::cout << "Bola [ Centro: (" << s->getCentro().getX() << ", " << s->getCentro().getY() << ", " << s->getCentro().getZ() << ") /" << " / Radio: " << s->getRadio() << "]\n";
+			//std::cout << "PlanoXZ [ Origen: (" << p->getOrigen().getX() << ", " << p->getOrigen().getY() << ", " << p->getOrigen().getZ() << ") /" <<
+			//	" Normal: (" << p->getNormal().getX() << ", " << p->getNormal().getY() << ", " << p->getNormal().getZ() << ")\n\n\n\n";
 			bool collided = false;
 			//Si la posicion Y de la bola + su radio es <
 			float posYplano = p->getOrigen().getY();
 			float posYbola = (s->getCentro().getY() - s->getRadio());
-			std::cout << "PosYBola = " << posYbola << "\nPosYplano = " << posYplano << "\n";
+			//std::cout << "PosYBola = " << posYbola << "\nPosYplano = " << posYplano << "\n";
 			collided = (posYbola < posYplano);
-			if (collided) std::cout << "Collided = true\n";
-			else std::cout << "Collided = false\n";
+			//if (collided) std::cout << "Collided = true\n";
+			//else std::cout << "Collided = false\n";
 
 
 			return collided;

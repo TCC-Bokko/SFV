@@ -52,10 +52,31 @@ void Ball::update(double deltaTime)
 	sphere->updateCentro(location);
 }
 
+void Ball::updatePhysics(Punto p, Vector impDir, GLfloat CR) { //Direccion impacto / Coef. Restitucion
+	physicsUpdated = true;
+	//location.setX(0);
+	location.setY(p.getY());
+	//location.setZ(0);
+	Vector oldSpeed(velocity.getX(), velocity.getY(), velocity.getZ());
+
+	GLfloat xResult = (oldSpeed.getX()*CR)*impDir.getX();
+	GLfloat yResult = (oldSpeed.getY()*CR)*-impDir.getY();
+	GLfloat zResult = (oldSpeed.getZ()*CR)*impDir.getZ();
+	//std::cout << "xResult: " << xResult << "\n";
+	//std::cout << "yResult: " << yResult << "\n";
+	//std::cout << "zResult: " << zResult << "\n";
+	//system("PAUSE");
+	
+	velocity.setX(xResult);
+	velocity.setY(yResult);
+	velocity.setZ(zResult);
+}
 
 void Ball::debugMessage() {
 	std::cout << "\n\n______BOLA_____\n";
 	std::cout << "Ball Radius: " << radius << "\n";
 	std::cout << "Ball Location: (" << location.getX() << ", " << location.getY() << ", " << location.getZ() << ")\n";
 	std::cout << "Ball Velocity: (" << velocity.getX() << ", " << velocity.getY() << ", " << velocity.getZ() << ")\n";
+	if (physicsUpdated) std::cout << "Updated Physics\n";
+	else std::cout << "Not updated Physics\n";
 }

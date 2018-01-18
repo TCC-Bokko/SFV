@@ -2,21 +2,24 @@
 #include <iostream>
 
 //Constructor del plano a partir de un origen y un tamaño
-Plane::Plane(Punto o, GLfloat t) {
+Plane::Plane(Punto o, GLfloat t, GLfloat r) {
 	tam = t;
 	origen = o;
 	ptsXtam();
 	Punto* apt1 = &pt1;
 	Punto* apt2 = &pt2;
 	Punto* apt3 = &pt3;
+	//Aun no estoy usando la normal
 	normal.setX(0);
-	normal.setY(0);
+	normal.setY(1);
 	normal.setZ(0);
+	if (r > 0 && r <= 1) CR = r;
+	else CR = 1;
 	//plano = new Plano(apt1, apt2, apt3);
 	plXZ = new PlanoXZ(origen, t, normal);
 }
 
-
+/*
 Plane::Plane(Punto* p1, Punto* p2, Punto* p3) : Objeto() {
 	pt1 = *p1;
 	pt2 = *p2;
@@ -24,6 +27,7 @@ Plane::Plane(Punto* p1, Punto* p2, Punto* p3) : Objeto() {
 	color[0] = color[1] = color[2] = 1.0f;
 	//plano = new Plano(p1, p2, p3);
 }
+*/
 
 Plane::~Plane()
 {
@@ -56,8 +60,9 @@ void Plane::draw()
 }
 
 void Plane::debugMessage() {
-	std::cout << "\n\n______PLANO_____\n";
+	std::cout << "\n\n______PLANOXZ_____\n";
 	std::cout << "Plane Location: (" << location.getX() << ", " << location.getY() << ", " << location.getZ() << ")\n";
+	std::cout << "Plane Restitution Coeficient: " << CR << "\n";
 	/*
 	std::cout << "Plane Velocity: (" << velocity.getX() << ", " << velocity.getY() << ", " << velocity.getZ() << ")\n";
 	std::cout << "Vertice 1: (" << pt1.getX() << ", " << pt1.getY() << ", " << pt1.getZ() << ")\n";
