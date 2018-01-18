@@ -31,7 +31,7 @@ Plane::Plane(Punto* p1, Punto* p2, Punto* p3) : Objeto() {
 
 Plane::~Plane()
 {
-	delete plano;
+	delete plXZ;
 }
 
 void Plane::update(double deltaTime) {

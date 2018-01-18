@@ -15,6 +15,7 @@ Ball::Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius):
 
 Ball::~Ball()
 {
+	delete sphere;
 }
 
 

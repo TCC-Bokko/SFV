@@ -38,7 +38,7 @@ bool collisionDetected;
 //pixel *img;
 
 Objeto * ball;
-Pared* wall;
+//Pared* wall;
 Objeto * ball2;
 Objeto * plane;
 PSystem * ps; 
@@ -52,27 +52,18 @@ void pause4delight() {
 void initializeVariables()
 {
 	gravity = 1;
-	// <Racket>
-	//gameIsPaused = 1;
 	gravityIsOn = 1;
 	debug = false;
 
-	//img = NULL;
-	//exitMenu = 0;
-
 	friction = 0.10;
 
-	//ARREGLAR QUE SOLO SE GENEREN PARTICULAS EN EL CUADRANTE I (Meter valores negativos por ahí)
-	//METER GRAVEDAD a bolas
-	//QUE afecte la masa (menos masa más fácil mover)
-
 	// Actores de las escena
-	ball = new Ball(Punto(12.5, 40, 1), Vector(0, 0, 0), 0.01f, 1.0f);
+	ball = new Ball(Punto(0, 35, 15), Vector(0, 0, 0), 0.01f, 1.0f);
 	//ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
 	//ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
 	//ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
 	//wall = new Pared(Punto(11, 7, 1), Vector(0, 1, 1), 10, 15, 0.0f);
-	plane = new Plane(Punto(-30.f, -25.f, -30.f), 60.f, 0.4f); //origen, tamaño y coef. restitucion entre 0 y 1.
+	plane = new Plane(Punto(-30.f, -25.f, -30.f), 60.f, 0.7f); //origen, tamaño y coef. restitucion entre 0 y 1.
 
 	//pause4delight();
 }
@@ -100,8 +91,6 @@ int main(int argc, char *argv[])
 	glutKeyboardUpFunc(kbUp);*/
 	glutIdleFunc(idleFunc);
 	//glutMouseFunc(mouseFunc);
-
-	//pauseGame();
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -145,7 +134,7 @@ void display(void)
 	//ACTORES DE LA ESCENA
 	camera();
 	ball->draw();
-	wall->draw();
+	//wall->draw();
 	plane->draw();
 	//ball2->draw();
 	//ps->draw();
@@ -244,7 +233,7 @@ void debugMessage() {
 	dynamic_cast<Ball*> (ball)->debugMessage();
 	//dynamic_cast<PSystem*> (ps)->debugMessage();
 	//dynamic_cast<PSystem*> (ps2)->debugMessage();
-	dynamic_cast<Pared*> (wall)->debugMessage();
+	//dynamic_cast<Pared*> (wall)->debugMessage();
 	dynamic_cast<Plane*> (plane)->debugMessage();
 }
 
@@ -261,24 +250,24 @@ void idleFunc()
 
 	dt = 0.001*(presentTime - lastTime); // Sec to MiliSec
 
-	if (debug) debugMessage();
+	if (debug){ debugMessage(); }
 
 	ball->update(dt);
 	//ball2->update(dt);
 	//ps->update(dt);
 	//ps2->update(dt);
-	wall->plano.cambiarNormal(Vector(wall->plano.getNormal().getX() + 1, wall->plano.getNormal().getY(), wall->plano.getNormal().getZ()), wall->centro);
+	//wall->plano.cambiarNormal(Vector(wall->plano.getNormal().getX() + 1, wall->plano.getNormal().getY(), wall->plano.getNormal().getZ()), wall->centro);
 
 
 	//std::cout << "Previo a deteccion colision\n";
 	collisionDetected = Collisions::sphereAndPlanoXZ(dynamic_cast<Ball*>(ball)->getSphere(), dynamic_cast<Plane*>(plane)->getPlanoXZ());
 	if (collisionDetected) {
-		if(debug)std::cout << "Colision detectada\n";
+		//if(debug)std::cout << "Colision detectada\n";
 		display();
 		dynamic_cast<Ball*>(ball)->updatePhysics(dynamic_cast<Plane*>(plane)->location, dynamic_cast<Plane*>(plane)->getN(), dynamic_cast<Plane*>(plane)->getCR());
 	}
 	else {
-		if(debug)std::cout << "NO HAY COLISION\n";
+		//if(debug)std::cout << "NO HAY COLISION\n";
 	}
 
 	//Actualización de la posición de las particulas en cada eje
@@ -293,36 +282,7 @@ void idleFunc()
 		}
 	}
 
-	racket.velocity[0] *= 0.9;
-	racket.velocity[2] *= 0.9;*/
-
-
-	//collisionDetection();
-	//racketCollision();
-
-
-
-
-
-	/*if (ball.velocity[2] > 0)
-	{
-	if (ball.location[2] > racket.location[2] - 10 && ball.location[2] < racket.location[2] + 10)
-	{
-	if (racket.location[1] < ball.location[1])
-	{
-	racket.location[1] = ball.location[1];
-	}
-
-	}
-	}*/
-
-
-	//Need to change this to the new method of collision detection
-	/*if (ball.location[2] <= -4.1 || ball.location[2] >= 50 || ball.location[1] <= -10.1)
-	{
-		resetBall();
-	}
-	*/
+*/
 	lastTime = presentTime;
 	glutPostRedisplay();
 	//if (collisionDetected) pause4delight();

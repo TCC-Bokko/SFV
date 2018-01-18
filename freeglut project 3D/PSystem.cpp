@@ -17,6 +17,9 @@ PSystem::PSystem()
 
 PSystem::~PSystem()
 {
+	for (int i = 0; i < sistema.size(); i++) {
+		delete sistema[i];
+	}
 }
 
 void PSystem::setup(Vector speed) {
