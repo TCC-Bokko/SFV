@@ -14,7 +14,6 @@ public:
 	// De Objeto
 	void draw();
 	void update(double deltaTime);
-	void debugMessage();
 	void invNormal() { normal.getY()*-1; }
 	Plano* getPlane() { return plano; };
 	PlanoXZ* getPlanoXZ() { return plXZ; }

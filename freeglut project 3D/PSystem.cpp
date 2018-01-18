@@ -34,10 +34,10 @@ void PSystem::setup(Vector speed) {
 	const float minV = 0.4f;
 	const float maxV = 1.2f;
 	for (int i = 0; i < sistema.size(); i++){
-		nSpeed = speed;
-		nSpeed.randomize(minV, maxV, minV, maxV, minV, maxV);
-		sistema[i] = new Ball(location, nSpeed, 0.00001f , radius);
-		}*/
+	nSpeed = speed;
+	nSpeed.randomize(minV, maxV, minV, maxV, minV, maxV);
+	sistema[i] = new Ball(location, nSpeed, 0.00001f , radius);
+	}*/
 	sistema.resize(np);
 	int rX, rY, rZ;
 	Vector finalDir;
@@ -64,14 +64,14 @@ void PSystem::setup(Vector speed) {
 }
 
 void PSystem::update(double dt) {
-	
+
 	//llamamos al update de cada objeto
 	for (int i = 0; i < sistema.size(); i++) {
 		sistema[i]->update(dt);
 	}
 
 	calcV(dt);
-	if(debug) debugMessage();
+	if (debug) debugMessage();
 }
 
 void PSystem::draw() {
@@ -85,7 +85,7 @@ void PSystem::calcV(double dt) {
 	if (gravity) {
 		for (int i = 0; i < sistema.size(); i++) {
 			nvz = sistema[i]->velocity.getZ();
-			nvz += dt*gForce*50;
+			nvz += dt * gForce * 50;
 			sistema[i]->velocity.setZ(nvz);
 		}
 	}
@@ -99,9 +99,9 @@ void PSystem::debugMessage() {
 	std::cout << "Particle Radious: " << radius << "\n";
 	std::cout << "Base speed: (" << speed.getX() << ", " << speed.getY() << ", " << speed.getZ() << ") \n";
 	std::cout << "///////////////////////////////////////////////////////\n";
-	for (int i = 0; i < sistema.size(); i++){
-		std::cout << "P" << i <<" Pos(" << sistema[i]->location.getX() << ", " << sistema[i]->location.getY() << ", " << sistema[i]->location.getZ() << ")"
-			  << " P1 Speed(" << sistema[i]->velocity.getX() << ", " << sistema[i]->velocity.getY() << ", " << sistema[i]->velocity.getZ() << ")\n";
+	for (int i = 0; i < sistema.size(); i++) {
+		std::cout << "P" << i << " Pos(" << sistema[i]->location.getX() << ", " << sistema[i]->location.getY() << ", " << sistema[i]->location.getZ() << ")"
+			<< " P1 Speed(" << sistema[i]->velocity.getX() << ", " << sistema[i]->velocity.getY() << ", " << sistema[i]->velocity.getZ() << ")\n";
 	}
 
 }

@@ -36,4 +36,3 @@ private:
 	Vector speed;
 	vector<Ball*> sistema;
 };
-

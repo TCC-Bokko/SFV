@@ -9,25 +9,15 @@ Plane::Plane(Punto o, GLfloat t, GLfloat r) {
 	Punto* apt1 = &pt1;
 	Punto* apt2 = &pt2;
 	Punto* apt3 = &pt3;
-	//Aun no estoy usando la normal
+
 	normal.setX(0);
 	normal.setY(1);
 	normal.setZ(0);
-	if (r >= 0 && r <= 1) CR = r;
-	else CR = 1;
-	//plano = new Plano(apt1, apt2, apt3);
+
+	(r >= 0 && r <= 1) ? CR = r : CR = 1;
+
 	plXZ = new PlanoXZ(origen, t, normal);
 }
-
-/*
-Plane::Plane(Punto* p1, Punto* p2, Punto* p3) : Objeto() {
-	pt1 = *p1;
-	pt2 = *p2;
-	pt3 = *p3;
-	color[0] = color[1] = color[2] = 1.0f;
-	//plano = new Plano(p1, p2, p3);
-}
-*/
 
 Plane::~Plane()
 {
@@ -57,17 +47,4 @@ void Plane::draw()
 	glPopMatrix();
 	
 
-}
-
-void Plane::debugMessage() {
-	std::cout << "\n\n______PLANOXZ_____\n";
-	std::cout << "Plane Location: (" << location.getX() << ", " << location.getY() << ", " << location.getZ() << ")\n";
-	std::cout << "Plane Restitution Coeficient: " << CR << "\n";
-	/*
-	std::cout << "Plane Velocity: (" << velocity.getX() << ", " << velocity.getY() << ", " << velocity.getZ() << ")\n";
-	std::cout << "Vertice 1: (" << pt1.getX() << ", " << pt1.getY() << ", " << pt1.getZ() << ")\n";
-	std::cout << "Vertice 2: (" << pt2.getX() << ", " << pt2.getY() << ", " << pt2.getZ() << ")\n";
-	std::cout << "Vertice 3: (" << pt3.getX() << ", " << pt3.getY() << ", " << pt3.getZ() << ")\n";
-	std::cout << "Vertice 4: (" << pt4.getX() << ", " << pt4.getY() << ", " << pt4.getZ() << ")\n";
-	*/
 }
