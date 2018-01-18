@@ -6,17 +6,12 @@
 #include <math.h>
 #include <time.h>
 #include <ctype.h>
-//#include "glm.h"
-//#include "assert.h"
-//#include "MenuItems.h"
-//#include "Misc.h"
-//#include "Controls.h"
-//#include "Collision.h"
-//#include "IMGLoader.h"
+
 #include "Objeto.h"
 #include "Ball.h"
 #include "PSystem.h"
 #include "Pared.h"
+#include "Explosion_SP.h"
 #include "Plane.h" //Plano XZ
 
 using namespace Physics;
@@ -38,11 +33,12 @@ bool collisionDetected;
 //pixel *img;
 
 Objeto * ball;
-Pared* wall;
+//Pared* wall;
 Objeto * ball2;
 Objeto * plane;
 PSystem * ps; 
-PSystem * ps2;
+Explosion_SP* explosion;
+//PSystem * ps2;
 
 
 void pause4delight() {
@@ -69,11 +65,12 @@ void initializeVariables()
 	// Actores de las escena
 	ball = new Ball(Punto(12.5, 40, 1), Vector(0, 0, 0), 0.01f, 1.0f);
 	//ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
-	//ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
+	//ps2 = new PSystem(Punto(0, 0, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
 	//ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
 	//wall = new Pared(Punto(11, 7, 1), Vector(0, 1, 1), 10, 15, 0.0f);
 	plane = new Plane(Punto(-30.f, -25.f, -30.f), 60.f, 0.4f); //origen, tamaño y coef. restitucion entre 0 y 1.
-
+	//explosion = new Explosion_SP(Punto(0,0,0), 20, Vector(0.2f, 5, 0.2f), 1, false, false);
+	explosion = nullptr;
 	//pause4delight();
 }
 
@@ -145,8 +142,9 @@ void display(void)
 	//ACTORES DE LA ESCENA
 	camera();
 	ball->draw();
-	wall->draw();
+	//wall->draw();
 	plane->draw();
+	if (explosion != nullptr) explosion->draw();
 	//ball2->draw();
 	//ps->draw();
 	//ps2->draw();
@@ -244,7 +242,7 @@ void debugMessage() {
 	dynamic_cast<Ball*> (ball)->debugMessage();
 	//dynamic_cast<PSystem*> (ps)->debugMessage();
 	//dynamic_cast<PSystem*> (ps2)->debugMessage();
-	dynamic_cast<Pared*> (wall)->debugMessage();
+	//dynamic_cast<Pared*> (wall)->debugMessage();
 	dynamic_cast<Plane*> (plane)->debugMessage();
 }
 
@@ -264,16 +262,19 @@ void idleFunc()
 	if (debug) debugMessage();
 
 	ball->update(dt);
+	if (explosion != nullptr)explosion->update(dt);
 	//ball2->update(dt);
 	//ps->update(dt);
 	//ps2->update(dt);
-	wall->plano.cambiarNormal(Vector(wall->plano.getNormal().getX() + 1, wall->plano.getNormal().getY(), wall->plano.getNormal().getZ()), wall->centro);
+	//wall->plano.cambiarNormal(Vector(wall->plano.getNormal().getX() + 1, wall->plano.getNormal().getY(), wall->plano.getNormal().getZ()), wall->centro);
 
 
 	//std::cout << "Previo a deteccion colision\n";
 	collisionDetected = Collisions::sphereAndPlanoXZ(dynamic_cast<Ball*>(ball)->getSphere(), dynamic_cast<Plane*>(plane)->getPlanoXZ());
 	if (collisionDetected) {
 		if(debug)std::cout << "Colision detectada\n";
+		if (abs(ball->velocity.getY())> 0)
+		explosion = new Explosion_SP(Punto(ball->location), 20, Vector(0.5f, -ball->velocity.getY()*0.1, 0.5f), 0.25, .5*1000, false, false);
 		display();
 		dynamic_cast<Ball*>(ball)->updatePhysics(dynamic_cast<Plane*>(plane)->location, dynamic_cast<Plane*>(plane)->getN(), dynamic_cast<Plane*>(plane)->getCR());
 	}

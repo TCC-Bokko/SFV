@@ -72,6 +72,7 @@ namespace Physics {
 
 
 		//Getters and setters///////
+		inline void set(float nx, float ny, float nz) { x = nx; y = ny; z = nz; };
 		inline void setX(float a) { x = a; };
 		inline void setY(float a) { y = a; };
 		inline void setZ(float a) { z = a; };
@@ -281,6 +282,10 @@ namespace Physics {
 
 	static double angleBetweenVectors(Vector& v, Vector& u) {
 		return std::acos(productoEscalar(v, u) / (v.modulo() * u.modulo()));
+	}
+
+	static double degrees2radians(float degrees) {
+		return (TWO_PI*degrees / 360);
 	}
 
 	template<class T>
