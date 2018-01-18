@@ -53,23 +53,8 @@ void Ball::update(double deltaTime)
 }
 
 void Ball::updatePhysics(Punto p, Vector impDir, GLfloat CR) { //Direccion impacto / Coef. Restitucion
-	physicsUpdated = true;
-	//location.setX(0);
-	location.setY(p.getY());
-	//location.setZ(0);
-	Vector oldSpeed(velocity.getX(), velocity.getY(), velocity.getZ());
-
-	GLfloat xResult = (oldSpeed.getX()*CR)*impDir.getX();
-	GLfloat yResult = (oldSpeed.getY()*CR)*-impDir.getY();
-	GLfloat zResult = (oldSpeed.getZ()*CR)*impDir.getZ();
-	//std::cout << "xResult: " << xResult << "\n";
-	//std::cout << "yResult: " << yResult << "\n";
-	//std::cout << "zResult: " << zResult << "\n";
-	//system("PAUSE");
-	
-	velocity.setX(xResult);
+	GLfloat yResult = -(velocity.getY()*CR);
 	velocity.setY(yResult);
-	velocity.setZ(zResult);
 }
 
 void Ball::debugMessage() {

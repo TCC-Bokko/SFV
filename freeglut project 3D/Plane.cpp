@@ -13,7 +13,7 @@ Plane::Plane(Punto o, GLfloat t, GLfloat r) {
 	normal.setX(0);
 	normal.setY(1);
 	normal.setZ(0);
-	if (r > 0 && r <= 1) CR = r;
+	if (r >= 0 && r <= 1) CR = r;
 	else CR = 1;
 	//plano = new Plano(apt1, apt2, apt3);
 	plXZ = new PlanoXZ(origen, t, normal);
