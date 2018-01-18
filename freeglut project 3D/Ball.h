@@ -17,7 +17,6 @@ public:
 	Esfera* getSphere() { return sphere; }
 	void updatePhysics(Punto p, Vector impDir, GLfloat CR);
 	bool physicsUpdated = false;
-	Vector forces222();
 
 	Esfera* sphere;
 	GLfloat radius;

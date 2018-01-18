@@ -29,7 +29,7 @@ void Ball::draw()
 }
 
 
-const float GRAVITY = 1;
+const float GRAVITY = 10;
 void Ball::update(double deltaTime)
 {
 	// Lo del valor absoluto negativo esta en testing
@@ -51,6 +51,8 @@ void Ball::update(double deltaTime)
 
 	location.set(x, y, z);
 	sphere->updateCentro(location);
+
+	if (location.getY() < -25.0f + radius) location.setY(-25.0f + radius);
 }
 
 void Ball::updatePhysics(Punto p, Vector impDir, GLfloat CR) { //Direccion impacto / Coef. Restitucion

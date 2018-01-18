@@ -60,7 +60,7 @@ void initializeVariables()
 	// Actores de las escena
 	ball = new Ball(Punto(0, 35, 15), Vector(0, 0, 0), 0.01f, 1.0f);
 	//ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
-	//ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
+	ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
 	//ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
 	//wall = new Pared(Punto(11, 7, 1), Vector(0, 1, 1), 10, 15, 0.0f);
 	plane = new Plane(Punto(-30.f, -25.f, -30.f), 60.f, 0.7f); //origen, tamaño y coef. restitucion entre 0 y 1.
