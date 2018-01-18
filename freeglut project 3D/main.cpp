@@ -17,6 +17,7 @@
 #include "Ball.h"
 #include "PSystem.h"
 #include "Pared.h"
+#include "Plane.h" //Plano XZ
 
 using namespace Physics;
 
@@ -32,11 +33,13 @@ void idleFunc();
 int gravityIsOn;
 float gravity;
 float friction;
+bool debug;
 //pixel *img;
 
 Objeto * ball;
 Pared* wall;
 Objeto * ball2;
+Objeto * plane;
 PSystem * ps; 
 PSystem * ps2;
 void initializeVariables()
@@ -62,6 +65,7 @@ void initializeVariables()
 	ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
 	ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
 	wall = new Pared(Punto(11, 7, 1), Vector(0, 1, 1), 10, 15, 0.8f);
+	plane = new Plane(Punto(-30.f, -25.f, -30.f), 60.f);
 }
 
 int main(int argc, char *argv[])
@@ -132,6 +136,7 @@ void display(void)
 	camera();
 	ball->draw();
 	wall->draw();
+	plane->draw();
 	//ball2->draw();
 	//ps->draw();
 	//ps2->draw();
@@ -224,6 +229,15 @@ float forces222(int i, int j, float velocity)
 }
 
 
+void debugMessage() {
+	system("cls");
+	dynamic_cast<Ball*> (ball)->debugMessage();
+	dynamic_cast<PSystem*> (ps)->debugMessage();
+	dynamic_cast<PSystem*> (ps2)->debugMessage();
+	dynamic_cast<Pared*> (wall)->debugMessage();
+	dynamic_cast<Plane*> (plane)->debugMessage();
+}
+
 /**
 * Text book Example on particle physics (Interactive Computer Graphics A Top Down Approach, fith edition PG 574),
 * adapted to work with spheres & incorparate better collision detection
@@ -237,6 +251,8 @@ void idleFunc()
 	presentTime = glutGet(GLUT_ELAPSED_TIME);
 
 	dt = 0.001*(presentTime - lastTime); // Sec to MiliSec
+
+	if (debug) debugMessage();
 
 	ball->update(dt);
 	ball2->update(dt);

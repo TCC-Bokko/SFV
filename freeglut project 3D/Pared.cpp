@@ -28,5 +28,12 @@ void Pared::draw()
 		glRotated(angleBetweenVectors(faceTo, Vector(0, 0, 1)), 0, 0, 1);
 		glutSolidCube(1);
 	glPopMatrix();
-	cout << "////////////////////////////////////////"<<endl<<"////////////////////////////////////////" << endl;
+	//cout << "////////////////////////////////////////"<<endl<<"////////////////////////////////////////" << endl;
+}
+
+
+void Pared::debugMessage() {
+	std::cout << "\n\n______PARED_____\n";
+	std::cout << "Centro: (" << centro.getX() << ", " << centro.getY() << ", " << centro.getZ() << ")\n";
+	std::cout << "Alto: " << alto << " / Ancho: " << ancho << " / Largo: " << largo << " / CR: " << cr << "\n";
 }

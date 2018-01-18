@@ -50,3 +50,10 @@ void Ball::update(double deltaTime)
 
 	location.set(x, y, z);
 }
+
+
+void Ball::debugMessage() {
+	std::cout << "\n\n______BOLA_____\n";
+	std::cout << "Ball Location: (" << location.getX() << ", " << location.getY() << ", " << location.getZ() << ")\n";
+	std::cout << "Ball Velocity: (" << velocity.getX() << ", " << velocity.getY() << ", " << velocity.getZ() << ")\n";
+}

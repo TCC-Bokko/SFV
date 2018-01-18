@@ -9,6 +9,8 @@ using namespace Physics;
 class Objeto
 {
 public:
+	Objeto() {};
+	Objeto(Punto location) {};
 	Objeto(Punto location, Vector velocity, GLfloat mass) :
 		location(location), oldLocation(location), velocity (velocity), mass(mass){};
 	~Objeto() {};

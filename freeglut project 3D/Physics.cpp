@@ -214,6 +214,21 @@ namespace Physics {
 		Vector pr;
 		Vector n;
 	};
+
+	class PlanoXZ {
+	public:
+		//Este plano tiene la particularidad de que se expande desde un origen en los ejes X y Z.
+		PlanoXZ(Punto o, float t, Vector n) : origen(o), tam(t), normal(n) {
+		}
+		Punto getOrigen() { return origen; }
+		float getTam() { return tam; }
+		Vector getNormal() { return normal; }
+	private:
+		Vector normal;
+		Punto origen;
+		float tam;
+	};
+
 	class Recta {
 		Recta(Punto& p0, Punto& p1) : p(p0), v(Vector(p0, p1)) {};
 		Recta(Punto& p, Vector& v) :p(p), v(v) {};

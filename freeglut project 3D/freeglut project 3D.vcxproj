@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -71,12 +71,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pared.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Pared.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="PSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

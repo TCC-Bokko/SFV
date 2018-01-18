@@ -9,6 +9,7 @@ class Ball : public Objeto
 public:
 	Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius);
 	~Ball();
+	void debugMessage();
 	
 	// De Objeto
 	void draw();

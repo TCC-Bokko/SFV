@@ -10,6 +10,7 @@ public:
 	Pared(Punto centro, Vector faceTo, float h, float w, float cr);
 	~Pared();
 	void draw();
+	void debugMessage();
 
 	GLfloat color[3];
 	Punto centro;
