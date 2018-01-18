@@ -57,7 +57,7 @@ void PSystem::setup(Vector speed) {
 		nSpeed.setZ(finalDir.getZ()*speed.getZ());
 		//std::cout << "nSpeed: (" << nSpeed.getX() << ", " << nSpeed.getY() << ", " << nSpeed.getZ() << ");\n";
 		//Metemos la velocidad modificada a las particulas
-		sistema[i] = new Ball(location, nSpeed, 0.0001f, radius);
+		sistema[i] = new Ball(location, nSpeed, 0.0001f, radius, Vector(1, 0, 0));
 		//system("Pause");
 	}
 

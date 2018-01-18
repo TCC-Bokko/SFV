@@ -7,7 +7,7 @@ using namespace Physics;
 class Ball : public Objeto
 {
 public:
-	Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius);
+	Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius, Vector c);
 	~Ball();
 	void debugMessage();
 	
@@ -21,6 +21,5 @@ public:
 	Esfera* sphere;
 	GLfloat radius;
 	Vector aceleration;
-
 };
 #endif

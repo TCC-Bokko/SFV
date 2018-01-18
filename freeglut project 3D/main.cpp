@@ -58,7 +58,7 @@ void initializeVariables()
 	friction = 0.10;
 
 	// Actores de las escena
-	ball = new Ball(Punto(0, 35, 15), Vector(0, 0, 0), 0.01f, 1.0f);
+	ball = new Ball(Punto(0, 35, 15), Vector(0, 0, 0), 0.01f, 2.0f, Vector(0, 1.0f, 0));
 	//ps = new PSystem(Punto(5, 0, 0), 10, Vector(3, 3, 3), 0.2f, false, false); //Lugar, nº particulas, velocidad por eje, masa, gravedad, debug
 	ps2 = new PSystem(Punto(0, 5, 0), 1000, Vector(5, 5, 5), 0.5f, false, false);
 	//ball2 = new Ball(Punto(0, 0, 5), Vector(2, 0, 0), 0.01f, 1.0f);
@@ -83,6 +83,7 @@ int main(int argc, char *argv[])
 	glutReshapeFunc(myReshape);
 
 	glutDisplayFunc(display);
+
 
 	glClearColor(0.36, 0.14, 0.57, 0);
 
@@ -143,24 +144,30 @@ void display(void)
 	//drawShadows();
 	//drawTable();
 	//drawPlane();
+	
+	GLfloat amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
 
+	glEnable(GL_COLOR_MATERIAL);
+	glMaterialf(GL_FRONT, GL_SHININESS, 0.9f);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_NORMALIZE);
+	glShadeModel(GL_SMOOTH); // Shading by default
 
 	// Luces de la escena
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	GLfloat d[] = { 0.7f,0.5f,0.5f,1.0f };
+	GLfloat d[] = { 0.7f, 0.5f, 0.5f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
-	GLfloat a[] = { 0.3f,0.3f,0.3f,1.0f };
+	GLfloat a[] = { 0.3f, 0.3f, 0.3f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
-	GLfloat s[] = { 1.0f,1.0f,1.0f,1.0f };
+	GLfloat s[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_SPECULAR, s);
 	GLfloat p[] = { 25.0f, 25.0f, 25.0f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, p);
-	//drawRacket(racket.location[0], racket.location[1], racket.location[2]);
 
 
 
-	//glutSetCursor(GLUT_CURSOR_NONE); //a la mierda el cursor del raton
 
 	glFlush();
 

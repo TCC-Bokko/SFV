@@ -2,10 +2,12 @@
 #include <iostream>
 
 
-Ball::Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius):
+Ball::Ball(Punto location, Vector velocity, GLfloat mass, GLfloat radius, Vector c):
 	Objeto(location, velocity, mass), radius(radius)
 {
-	color[0] = color[1] = color[2] = 1.0f;
+	color[0] = c.getX();
+	color[1] = c.getY();
+	color[2] = c.getZ();
 	sphere = new Esfera(location, radius);
 
 	//Inicializar la gravedad
